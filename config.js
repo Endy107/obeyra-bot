@@ -29,7 +29,7 @@ let ownerData = [
   ['79524931364', 'Pusher', true],
   ['17577575541', 'Axtral', true],   
   ['447785114563', 'Dado', true],
-  ['5564920039928', 'xxxx', true],     
+  ['xxxx', 'xxxx', true],     
 
 // ---- Owner LID ----
 
