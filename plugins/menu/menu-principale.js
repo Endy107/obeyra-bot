@@ -66,7 +66,7 @@ let handler = async (m, { conn, usedPrefix }) => {
     menuButton('🎵 𝐀𝐮𝐝𝐢𝐨', 'menuaudio')
   ]
   const staffButtons = [
-    menuButton('📊 𝐒𝐭𝐚𝐟𝐟', 'modstats'),
+    menuButton('📊 𝐒𝐭𝐚𝐭𝐬', 'modstats'),
     menuButton('🔐 𝐎𝐰𝐧𝐞𝐫', 'owner')
   ]
 
@@ -86,7 +86,7 @@ let handler = async (m, { conn, usedPrefix }) => {
     headerType: 1
   })
   await conn.sendMessage(m.chat, {
-    text: '🛡️ *STAFF E OWNER*\nAccesso ai pannelli riservati.',
+    text: '🛡️ *STATS E OWNER*\nAccesso ai pannelli riservati.',
     footer: botName,
     buttons: staffButtons,
     headerType: 1
