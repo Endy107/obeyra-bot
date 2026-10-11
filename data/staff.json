@@ -24,22 +24,6 @@
     "telegram": ""
   },
   {
-    "nome": "Ghost",
-    "ruolo": "Full-Stack Developer",
-    "emoji": "🥷",
-    "bio": "Database integration and logic fixes.",
-    "instagram": "",
-    "telegram": ""
-  },
-  {
-    "nome": "Manu",
-    "ruolo": "Junior Developer",
-    "emoji": "👨‍💻",
-    "bio": "UI elements and basic JS script testing.",
-    "instagram": "",
-    "telegram": ""
-  },
-  {
     "nome": "Dado",
     "ruolo": "QA & Beta Tester",
     "emoji": "🧪",
