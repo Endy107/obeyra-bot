@@ -46,7 +46,6 @@ let handler = async (m, { conn, usedPrefix: prefix }) => {
 Intrattenimento & Funzioni Community
 
 ♟️ *Giochi da Tavolo*
-• ${prefix}scacchi
 • ${prefix}startblast
 • ${prefix}trivia
 • ${prefix}indovina
