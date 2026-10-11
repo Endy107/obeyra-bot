@@ -1,28 +1,98 @@
-//Plugin by Gab, Lucifero & 888 staff
+// Plugin by elixir
+import { LIMITS } from '../../lib/moderation.js'
 
-export async function before(m, { conn, isAdmin, isBotAdmin }) {
-  if (m.isBaileys && m.fromMe) return true;
-  if (!m.isGroup) return false;
+const PORN_PATTERNS = [
+  /pornhub\.com/i,
+  /xvideos\.com/i,
+  /xnxx\.com/i,
+  /redtube\.com/i,
+  /xhamster\.com/i,
+  /youporn\.com/i,
+  /pornmd\.com/i,
+  /beeg\.com/i,
+  /tube8\.com/i,
+  /spankbang\.com/i,
+  /brazzers\.com/i,
+  /onlyfans\.com/i,
+  /chaturbate\.com/i,
+  /camwhores/i,
+  /erome\.com/i,
+  /hclips\.com/i,
+  /tnaflix\.com/i,
+  /slutload/i,
+  /motherless\.com/i,
+  /\bporn\b/i,
+  /\bporno\b/i,
+  /\bhentai\b/i,
+  /\bnudes?\b/i,
+  /\bboobs\b/i,
+  /\btits\b/i,
+  /pussy/i,
+  /dickpic/i,
+  /blowjob/i,
+  /handjob/i,
+  /deepthroat/i,
+  /creampie/i,
+  /gangbang/i,
+  /threesome/i,
+  /onlyfans[\s_-]?leak/i,
+  /porn[\s_-]?video/i,
+  /sex[\s_-]?video/i,
+  /xxx[\s_-]?video/i,
+  /porcata/i,
+  /sesso[\s_-]?esplicito/i,
+  /video[\s_-]?porno/i,
+  /foto[\s_-]?porno/i,
+  /link[\s_-]?porno/i,
+  /tette/i,
+  /pompino/i,
+  /sborra/i,
+  /scopata/i,
+  /troia/i
+]
 
-  const chat = global.db.data.chats[m.chat];
-  if (!chat.antiporno || chat.isBanned) return true;
+const matchesPorn = (text = '') => {
+  if (!text) return false
+  return PORN_PATTERNS.some((re) => re.test(text))
+}
 
-  if (isAdmin || !isBotAdmin) return true;
+export async function before(m, { conn, isAdmin, isBotAdmin, isMods, isOwner, isROwner }) {
+  if (m.isBaileys && m.fromMe) return true
+  if (!m.isGroup) return false
 
-  const text = (m.text || '').toLowerCase();
-  const pornRegex = /(pornhub\.com|xvideos\.com|xnxx\.com|redtube\.com)/gi;
+  const chat = global.db.data.chats[m.chat]
+  if (!chat?.antiporno || chat?.isBanned) return true
 
-  if (!pornRegex.test(text)) return true;
+  // Staff esente, e il bot deve essere admin per poter cancellare/espellere
+  if (isAdmin || isMods || isOwner || isROwner || !isBotAdmin) return true
 
-  global.db.data.users[m.sender] = global.db.data.users[m.sender] || {};
-  let user = global.db.data.users[m.sender];
-  user.antiporno = (user.antiporno || 0) + 1;
+  const text = (m.text || '').toString()
+  const caption = (
+    m.message?.imageMessage?.caption ||
+    m.message?.videoMessage?.caption ||
+    m.message?.documentMessage?.caption ||
+    m.message?.extendedTextMessage?.text ||
+    ''
+  ).toString()
+  const fileName = (
+    m.message?.documentMessage?.fileName ||
+    m.message?.imageMessage?.fileName ||
+    m.message?.videoMessage?.fileName ||
+    ''
+  ).toString()
 
-  await conn.sendMessage(m.chat, {
-    text: `🚫 @${m.sender.split('@')[0]} 𝐢 𝐥𝐢𝐧𝐤 𝐩𝐨𝐫𝐧𝐨 𝐧𝐨𝐧 𝐬𝐨𝐧𝐨 𝐜𝐨𝐧𝐬𝐞𝐧𝐭𝐢𝐭𝐢!! 𝐖𝐚𝐫𝐧: ${user.antiporno}/3`,
-    mentions: [m.sender]
-  });
+  if (!matchesPorn(text) && !matchesPorn(caption) && !matchesPorn(fileName)) return true
 
+  // Stesso contatore di warn / unwarn / warnlist
+  global.db.data.users ??= {}
+  global.db.data.users[m.sender] ??= { warn: 0 }
+  const user = global.db.data.users[m.sender]
+  user.warn = (Number(user.warn) || 0) + 1
+
+  const maxWarn = LIMITS.MAX_WARN
+  const tag = `@${m.sender.split('@')[0]}`
+
+  // Cancella subito il messaggio
   await conn.sendMessage(m.chat, {
     delete: {
       remoteJid: m.chat,
@@ -30,20 +100,36 @@ export async function before(m, { conn, isAdmin, isBotAdmin }) {
       id: m.key.id,
       participant: m.sender
     }
-  });
+  }).catch(() => {})
 
-  if (user.antiporno >= 3) {
+  if (user.warn >= maxWarn) {
+    user.warn = 0
+    await conn.sendMessage(m.chat, {
+      text:
+        `❌ *UTENTE ESPULSO*\n` +
+        `👤 Target: ${tag}\n` +
+        `⚙️ Azione: Rimozione automatica\n` +
+        `⛔ Motivo: Link/contenuti porno (${maxWarn}/${maxWarn} avvertimenti)`,
+      mentions: [m.sender]
+    })
+    await new Promise(resolve => setTimeout(resolve, 1000))
     try {
-      await conn.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
-      await conn.sendMessage(m.chat, {
-        text: `⚠️ @${m.sender.split('@')[0]} 𝐞𝐬𝐩𝐮𝐥𝐬𝐨 𝐩𝐞𝐫 𝐥𝐢𝐧𝐤 𝐩𝐨𝐫𝐧𝐨\n\n𝐰𝐚𝐫𝐧 𝐭𝐨𝐭𝐚𝐥𝐢: 𝟑/𝟑`,
-        mentions: [m.sender]
-      });
-      user.antiporno = 0; 
+      await conn.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
     } catch (e) {
-      console.log('Errore espulsione antiporno:', e);
+      console.log('Errore espulsione antiporno:', e)
     }
+    return false
   }
 
-  return false;
+  await conn.sendMessage(m.chat, {
+    text:
+      `⚠️ *AVVERTIMENTO AUTOMATICO*\n` +
+      `👤 Target: ${tag}\n` +
+      `📝 Motivo: Link/contenuti porno non consentiti\n` +
+      `📊 Sanzioni: [ ${user.warn}/${maxWarn} ]\n\n` +
+      `⮕ Al ${maxWarn}° avvertimento l'utente verrà espulso dal gruppo.`,
+    mentions: [m.sender]
+  })
+
+  return false
 }
