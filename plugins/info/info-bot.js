@@ -19,7 +19,7 @@ Benvenuto nel pannello principale.
 • https://wa.me/79524931364
 
 🤖 *Nome Bot:* 888 BOT
-📦 *Versione:* 1.3
+📦 *Versione:* 1.4
 🌐 *Sito:* https://888bot.netlify.app
 💻 *Repository:* https://github.com/artyompennini-a11y/888-BOT
 
