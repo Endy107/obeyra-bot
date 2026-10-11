@@ -2,7 +2,7 @@
 import { LIMITS } from '../../lib/moderation.js'
 
 const GORE_PATTERNS = [
-  // Siti gore
+  
   /bestgore/i,
   /liveleak/i,
   /watchpeopledie/i,
@@ -14,7 +14,7 @@ const GORE_PATTERNS = [
   /deathaddict/i,
   /ogrish/i,
 
-  // Inglese (solo frasi di contenuto, non parole singole comuni)
+  
   /\bgore[\s_-]?(video|videos|pics?|photos?|foto|content)\b/i,
   /\b(video|videos|pics?|photos?|foto|link)[\s_-]?gore\b/i,
   /\bbehead(ing|ed)?[\s_-]?(video|videos|clip)\b/i,
@@ -23,7 +23,7 @@ const GORE_PATTERNS = [
   /\b(dismembered|mutilated|disemboweled|impaled)[\s_-]?(body|bodies|corpse|corpses)\b/i,
   /\breal[\s_-]?(corpse|corpses|dead[\s_-]?bod(y|ies))\b/i,
 
-  // Italiano (solo frasi di contenuto, non parole singole comuni)
+  
   /\b(video|foto|link)[\s_-]?(gore|shock)\b/i,
   /\bvideo[\s_-]?(di[\s_-])?(decapitazion[ei]|esecuzion[ei]|tortur[ae]|omicidi[o]?|suicidi[o]?)\b/i,
   /\bcorpo[\s_-]?smembrato\b/i,
@@ -46,7 +46,7 @@ export async function before(m, { conn, isAdmin, isBotAdmin, isMods, isOwner, is
   const chat = global.db.data.chats[m.chat]
   if (!chat?.antigore || chat?.isBanned) return true
 
-  // Staff esente, e il bot deve essere admin per poter cancellare/espellere
+  
   if (isAdmin || isMods || isOwner || isROwner || !isBotAdmin) return true
 
   const text = (m.text || '').toString()
@@ -66,7 +66,7 @@ export async function before(m, { conn, isAdmin, isBotAdmin, isMods, isOwner, is
 
   if (!matchesGore(text) && !matchesGore(caption) && !matchesGore(fileName)) return true
 
-  // Stesso contatore di warn / unwarn / warnlist
+  
   global.db.data.users ??= {}
   global.db.data.users[m.sender] ??= { warn: 0 }
   const user = global.db.data.users[m.sender]
@@ -75,7 +75,7 @@ export async function before(m, { conn, isAdmin, isBotAdmin, isMods, isOwner, is
   const maxWarn = LIMITS.MAX_WARN
   const tag = `@${m.sender.split('@')[0]}`
 
-  // Cancella subito il messaggio
+  
   await conn.sendMessage(m.chat, {
     delete: {
       remoteJid: m.chat,
