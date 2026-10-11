@@ -2,6 +2,7 @@
 import { LIMITS } from '../../lib/moderation.js'
 
 const PORN_PATTERNS = [
+  // Domini
   /pornhub\.com/i,
   /xvideos\.com/i,
   /xnxx\.com/i,
@@ -15,40 +16,32 @@ const PORN_PATTERNS = [
   /brazzers\.com/i,
   /onlyfans\.com/i,
   /chaturbate\.com/i,
-  /camwhores/i,
   /erome\.com/i,
   /hclips\.com/i,
   /tnaflix\.com/i,
-  /slutload/i,
   /motherless\.com/i,
-  /\bporn\b/i,
-  /\bporno\b/i,
+
+  // Parole (con confini di parola per evitare falsi positivi)
+  /\bporn(o|hub)?\b/i,
   /\bhentai\b/i,
   /\bnudes?\b/i,
   /\bboobs\b/i,
   /\btits\b/i,
-  /pussy/i,
-  /dickpic/i,
-  /blowjob/i,
-  /handjob/i,
-  /deepthroat/i,
-  /creampie/i,
-  /gangbang/i,
-  /threesome/i,
-  /onlyfans[\s_-]?leak/i,
-  /porn[\s_-]?video/i,
-  /sex[\s_-]?video/i,
-  /xxx[\s_-]?video/i,
-  /porcata/i,
-  /sesso[\s_-]?esplicito/i,
-  /video[\s_-]?porno/i,
-  /foto[\s_-]?porno/i,
-  /link[\s_-]?porno/i,
-  /tette/i,
-  /pompino/i,
-  /sborra/i,
-  /scopata/i,
-  /troia/i
+  /\bpussy\b/i,
+  /\bdick[\s_-]?pics?\b/i,
+  /\bblowjob\b/i,
+  /\bhandjob\b/i,
+  /\bdeepthroat\b/i,
+  /\bcreampie\b/i,
+  /\bgangbang\b/i,
+  /\bthreesome\b/i,
+  /\bonlyfans[\s_-]?leaks?\b/i,
+  /\b(porn|sex|xxx)[\s_-]?video\b/i,
+  /\b(video|foto|link)[\s_-]?porno\b/i,
+  /\bsesso[\s_-]?esplicito\b/i,
+  /\bpompino\b/i,
+  /\bsborra\b/i,
+  /\bscopata\b/i
 ]
 
 const matchesPorn = (text = '') => {
@@ -57,8 +50,9 @@ const matchesPorn = (text = '') => {
 }
 
 export async function before(m, { conn, isAdmin, isBotAdmin, isMods, isOwner, isROwner }) {
-  if (m.isBaileys && m.fromMe) return true
-  if (!m.isGroup) return false
+  // Ignora i messaggi del bot stesso (evita warn dai suoi avvisi)
+  if (m.fromMe || m.isBaileys || m.sender === conn.user?.jid) return true
+  if (!m.isGroup) return true
 
   const chat = global.db.data.chats[m.chat]
   if (!chat?.antiporno || chat?.isBanned) return true
@@ -98,7 +92,7 @@ export async function before(m, { conn, isAdmin, isBotAdmin, isMods, isOwner, is
       remoteJid: m.chat,
       fromMe: false,
       id: m.key.id,
-      participant: m.sender
+      participant: m.key.participant || m.sender
     }
   }).catch(() => {})
 
@@ -109,10 +103,10 @@ export async function before(m, { conn, isAdmin, isBotAdmin, isMods, isOwner, is
         `❌ *UTENTE ESPULSO*\n` +
         `👤 Target: ${tag}\n` +
         `⚙️ Azione: Rimozione automatica\n` +
-        `⛔ Motivo: Link/contenuti porno (${maxWarn}/${maxWarn} avvertimenti)`,
+        `⛔ Motivo: Contenuti non consentiti (${maxWarn}/${maxWarn} avvertimenti)`,
       mentions: [m.sender]
     })
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 1000))
     try {
       await conn.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
     } catch (e) {
@@ -125,7 +119,7 @@ export async function before(m, { conn, isAdmin, isBotAdmin, isMods, isOwner, is
     text:
       `⚠️ *AVVERTIMENTO AUTOMATICO*\n` +
       `👤 Target: ${tag}\n` +
-      `📝 Motivo: Link/contenuti porno non consentiti\n` +
+      `📝 Motivo: Contenuti non consentiti in questo gruppo\n` +
       `📊 Sanzioni: [ ${user.warn}/${maxWarn} ]\n\n` +
       `⮕ Al ${maxWarn}° avvertimento l'utente verrà espulso dal gruppo.`,
     mentions: [m.sender]
