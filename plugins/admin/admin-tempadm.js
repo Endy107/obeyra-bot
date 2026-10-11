@@ -1,14 +1,19 @@
-//Plugin by punisher, elixir & 888 staff
+// Plugin by elixir, punisher & 888 staff
 
 
 
 
-const handler = async (m, { conn, text, usedPrefix, command, participants }) => {
-  const isAdmin = participants.find(p => p.id === m.sender)?.admin;
-  const isOwner = m.sender === conn.user.jid || global.owner.some(owner => owner[0] === m.sender.split('@')[0]);
+const handler = async (m, { conn, text, usedPrefix, command, isAdmin, isOwner, isROwner }) => {
+  const { verifyGroupAdmin, verifyBotAdmin, isOwnerJid } = await import('../../lib/moderation.js')
+  let adminNow = !!(isAdmin || isOwner || isROwner)
+  if (!adminNow) {
+    const fresh = await verifyGroupAdmin(conn, m.chat, m.sender)
+    adminNow = fresh.ok
+  }
+  const ownerNow = !!(isOwner || isROwner) || isOwnerJid(m.sender)
 
-  if (!isAdmin && !isOwner) {
-    return m.reply(`*❌ Accesso Negato*\nSolo gli admin reali possono usare questo comando. Tu sei un admin temporaneo o un utente semplice.`);
+  if (!adminNow && !ownerNow) {
+    return m.reply(`*❌ Accesso Negato*\nSolo gli admin reali possono usare questo comando.`);
   }
 
   let who;
@@ -32,8 +37,14 @@ const handler = async (m, { conn, text, usedPrefix, command, participants }) => 
   const name = '@' + who.split`@`[0];
   const chat = m.chat;
 
+  const botCheck = await verifyBotAdmin(conn, chat)
+  if (!botCheck.ok) return m.reply('*❌ Errore:* Assicurati che il bot sia Admin.')
+
+  if (isOwnerJid(who)) return m.reply('*⛔ Non puoi promuovere un owner del bot.*')
+
   try {
     await conn.groupParticipantsUpdate(chat, [who], 'promote');
+    try { global.groupCache?.del?.(chat) } catch {}
 
     await conn.sendMessage(chat, { 
       text: `*⚡ ADMIN TEMPORANEO*\n\n*👤 Utente:* ${name}\n*⏳ Durata:* ${duration}${unit}\n\n_Rimozione automatica attiva._`,
@@ -43,6 +54,7 @@ const handler = async (m, { conn, text, usedPrefix, command, participants }) => 
     setTimeout(async () => {
       try {
         await conn.groupParticipantsUpdate(chat, [who], 'demote');
+        try { global.groupCache?.del?.(chat) } catch {}
         await conn.sendMessage(chat, { 
           text: `*⏰ TEMPO SCADUTO*\n\nL'utente ${name} non è più Admin.`,
           mentions: [who]
@@ -61,6 +73,7 @@ handler.help = ['tempadm @user <tempo>'];
 handler.tags = ['group'];
 handler.command = ['tempadm', 'tempadmin'];
 handler.group = true;
+handler.admin = true;
 handler.botAdmin = true;
 
 export default handler;
