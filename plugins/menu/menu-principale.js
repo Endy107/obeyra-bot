@@ -86,7 +86,7 @@ let handler = async (m, { conn, usedPrefix }) => {
     headerType: 1
   })
   await conn.sendMessage(m.chat, {
-    text: '🛡️ *STAFF E statistiche*\nAccesso ai pannelli riservati.',
+    text: '🛡️ *STAFF E OWNER*\nAccesso ai pannelli riservati.',
     footer: botName,
     buttons: staffButtons,
     headerType: 1
