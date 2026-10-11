@@ -559,7 +559,7 @@ async function epicStartup() {
 
     console.log(
       centerText(
-        '\x1b[97mVERSION 1.3 • 2K26\x1b[0m'
+        '\x1b[97mVERSION 1.4 • 2K26\x1b[0m'
       )
     );
 
