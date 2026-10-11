@@ -1,49 +1,40 @@
+import pkg from '../../package.json' with { type: 'json' }
+
+const MESSAGE = "« 🔓 »  *GRUPPO APERTO*\n\n> *Il silenzio è rotto. La parola torna al popolo. Esprimetevi con saggezza.*"
+
+const BUTTONS = [
+  {
+    buttonId: '.chiuso',
+    buttonText: { displayText: '🔒 𝐂𝐡𝐢𝐮𝐝𝐢 𝐆𝐫𝐮𝐩𝐩𝐨' },
+    type: 1
+  }
+]
+
 let handler = async (m, { conn }) => {
-
-
-  await conn.sendMessage(m.chat, { react: { text: '🔓', key: m.key } })
-
-
-  await conn.groupSettingUpdate(m.chat, 'not_announcement')
-
-  const message = "« 🔓 »  *GRUPPO APERTO*\n\n> *Il silenzio è rotto. La parola torna al popolo. Esprimetevi con saggezza.*"
-
-
-    const buttons = [
-    {
-      buttonId: '.chiudi',
-      buttonText: { displayText: '🔒 𝐂𝐡𝐢𝐮𝐝𝐢 𝐆𝐫𝐮𝐩𝐩𝐨' },
-      type: 1
-    }
-  ]
-
+  // Reazione e cambio impostazioni in parallelo, senza aspettare la reazione
+  conn.sendMessage(m.chat, { react: { text: '🔓', key: m.key } }).catch(() => {})
+  const update = conn.groupSettingUpdate(m.chat, 'not_announcement')
 
   const buttonMessage = {
-    text: message,
+    text: MESSAGE,
     footer: '⚙️ Pannello Rapido Amministrazione',
-    buttons: buttons,
+    buttons: BUTTONS,
     headerType: 1,
     contextInfo: {
-      externalAdReply: {
-        title: '〔 ACCESS GRANTED 〕',
-        body: 'Gestionale Sistema 𝟴𝟴𝟴 𝗕𝗢𝗧',
-        thumbnailUrl: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?q=80&w=500', 
-        sourceUrl: '',
-        mediaType: 1,
-        renderLargerThumbnail: false
-      },
       forwardingScore: 999,
       isForwarded: true,
       forwardedNewsletterMessageInfo: {
-
         newsletterJid: '120363427251015414@newsletter',
-        newsletterName: `✦ ${global.db?.data?.nomedelbot || '𝟴𝟴𝟴 𝗕𝗢𝗧'} ✦`,
+        newsletterName: `✦ ${global.db?.data?.nomedelbot || pkg.name} ✦`,
         serverMessageId: 143
       }
     }
   }
 
-  await conn.sendMessage(m.chat, buttonMessage, { quoted: m })
+  await Promise.all([
+    update,
+    conn.sendMessage(m.chat, buttonMessage, { quoted: m })
+  ])
 }
 
 handler.help = ['apri']
