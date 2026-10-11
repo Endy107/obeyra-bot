@@ -97,7 +97,7 @@ let handler = async (m, { conn, usedPrefix, text }) => {
   }
 
   const botName = global.db?.data?.nomedelbot || global.nomebot || "888 BOT"
-  const botVersion = global.versione || global.db?.data?.version || "1.3"
+  const botVersion = global.versione || global.db?.data?.version || "1.4"
 
   const menuText = `
 ⚡ *TEAM ${botName.toUpperCase()}*
