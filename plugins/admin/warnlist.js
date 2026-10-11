@@ -1,11 +1,12 @@
 // Plugin by elixir, punisher & 888 staff
 import {
   ROLES,
-  LIMITS,
   resolveRole,
   canUse,
   roleLabel,
-  logModAction
+  logModAction,
+  listWarns,
+  getWarnConfig
 } from '../../lib/moderation.js'
 
 const quick = (display_text, id) => ({
@@ -13,7 +14,6 @@ const quick = (display_text, id) => ({
   buttonParamsJson: JSON.stringify({ display_text, id })
 })
 
- device (":12")
 const norm = j => String(j || '').split('@')[0].split(':')[0]
 
 let handler = async (m, { conn, usedPrefix, isOwner, isROwner, isAdmin, isMods, participants }) => {
@@ -24,10 +24,9 @@ let handler = async (m, { conn, usedPrefix, isOwner, isROwner, isAdmin, isMods, 
     return conn.reply(m.chat, '⛔ Questo comando è riservato allo staff (Moderatori/Admin/Owner).', m)
   }
   logModAction({ role, actor: m.sender, action: 'warnlist', extra: 'lista utenti warnati' })
+  const cfg = getWarnConfig(m.chat)
+  const allWarned = listWarns(m.chat)
 
-  const users = global.db?.data?.users || {}
-
-   (id, jid, lid, phoneNumber), normalizzati
   const memberKeys = new Set(
     (Array.isArray(participants) ? participants : [])
       .flatMap(x => [x?.id, x?.jid, x?.lid, x?.phoneNumber])
@@ -35,21 +34,10 @@ let handler = async (m, { conn, usedPrefix, isOwner, isROwner, isAdmin, isMods, 
       .map(norm)
   )
 
-  
-  const allWarned = []
-  for (const [jid, entry] of Object.entries(users)) {
-    const count = Number(entry?.warn) || 0
-    if (count < 1) continue
-    allWarned.push({ jid, count })
-  }
-
-  
   let rows = memberKeys.size
     ? allWarned.filter(r => memberKeys.has(norm(r.jid)))
     : allWarned
   if (!rows.length && allWarned.length) rows = allWarned
-
-  rows.sort((a, b) => b.count - a.count || String(a.jid).localeCompare(String(b.jid)))
   const mentions = rows.map(r => r.jid)
 
   let text = `⚠️ *WARNLIST 888*\n`
@@ -72,11 +60,12 @@ let handler = async (m, { conn, usedPrefix, isOwner, isROwner, isAdmin, isMods, 
   }
 
   rows.forEach((r, i) => {
-    const level = r.count >= LIMITS.MAX_WARN - 1 ? '🔴' : r.count >= 3 ? '🟠' : '🟡'
-    text += `${level} ${i + 1}. @${norm(r.jid)} — *${r.count}/${LIMITS.MAX_WARN}* warn\n`
+    const level = r.count >= cfg.max - 1 ? '🔴' : r.count >= 3 ? '🟠' : '🟡'
+    text += `${level} ${i + 1}. @${norm(r.jid)} — *${r.count}/${cfg.max}* warn\n`
   })
   text += `━━━━━━━━━━━━━━━━━━━━━━\n`
-  text += `⮕ Al ${LIMITS.MAX_WARN}° warn l’utente viene espulso.\n`
+  text += `⮕ Al ${cfg.max}° warn l’utente viene espulso.\n`
+  text += `💡 Dettagli: *${p}warninfo @utente* • Togli: *${p}unwarn @utente [ID]*\n`
   text += `👤 *Il tuo ruolo:* ${roleLabel(role)}`
 
   return conn.sendMessage(m.chat, {
