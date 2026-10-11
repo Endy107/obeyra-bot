@@ -1,143 +1,61 @@
-//Plugin by Elixir, Punisher & 888 staff
-
-import { importCanvas } from '../../lib/canvas-fallback.js'
+// Plugin by elixir, punisher & 888 staff
+// Canvas sostituito con Browserless (HTML screenshot) + fallback Jimp
+import Jimp from 'jimp'
+import { screenshot, browserlessAvailable } from '../../lib/browserless.js'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-const renderCard = async ({
-  userName,
-  bank,
-  wallet,
-  stolen,
-  cardNumber,
-  iban,
-  cardImg
-}) => {
-
-  const { createCanvas, loadImage } = await importCanvas()
-  const bg = await loadImage(cardImg)
-  const W = bg.width
-  const H = bg.height
-
-  const canvas = createCanvas(W, H)
-  const ctx = canvas.getContext('2d')
-
-  ctx.drawImage(bg, 0, 0, W, H)
-
-  const GOLD = '#D4AF37'
-  const GLDL = '#EECD5A'
-  const WHITE = 'rgba(255,255,255,0.93)'
-  const RED = 'rgba(210,75,65,0.95)'
-
-  const txt = (text, x, y, font, color, skew = 0) => {
-    ctx.save()
-
-    ctx.transform(1, 0, skew, 1, 0, 0)
-
-    const rx = x - skew * y
-
-    ctx.font = font
-
-    ctx.fillStyle = 'rgba(0,0,0,0.55)'
-    ctx.fillText(text, rx + 2, y + 2)
-
-    ctx.fillStyle = color
-    ctx.fillText(text, rx, y)
-
-    ctx.restore()
+const renderCard = async ({ userName, bank, wallet, stolen, cardNumber, iban, cardImg }) => {
+  const bg = await Jimp.read(cardImg)
+  const W = bg.bitmap.width
+  const H = bg.bitmap.height
+  const bgUri = `data:image/jpeg;base64,${(await bg.getBufferAsync(Jimp.MIME_JPEG)).toString('base64')}`
+  if (browserlessAvailable()) {
+    try {
+      return await screenshot(buildCardHtml({ userName, bank, wallet, stolen, cardNumber, iban, bgUri, W, H }), { width: W, height: H, type: 'jpeg', quality: 92 })
+    } catch (e) {
+      console.warn('[RPG_portafoglio] browserless fallito, uso jimp:', e?.message || e)
+    }
   }
+  return renderCardJimp({ userName, bank, wallet, stolen, cardNumber, iban, bg })
+}
 
-  const SK = -0.15
-  const SK2 = -0.15
+function buildCardHtml({ userName, bank, wallet, stolen, cardNumber, iban, bgUri, W, H }) {
+  const esc = (s) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+  const GOLD = '#D4AF37', GLDL = '#EECD5A', WHITE = 'rgba(255,255,255,0.93)', RED = 'rgba(210,75,65,0.95)'
+  const n = (v) => Number(v || 0).toLocaleString('it-IT')
+  const T = (txt, x, y, fnt, color) => `<div style="position:absolute;left:${x}px;top:${y - 34}px;font:${fnt};color:${color};text-shadow:2px 2px 4px rgba(0,0,0,.55);transform:skewX(-0.15rad)">${esc(txt)}</div>`
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"><style>*{margin:0;padding:0;box-sizing:border-box}html,body{width:${W}px;height:${H}px;overflow:hidden;font-family:sans-serif}.bg{position:absolute;inset:0;background:url('${bgUri}') center/cover no-repeat}</style></head><body><div class="bg"></div>
+${T(userName, 560, 255, '500 44px sans-serif', GLDL)}
+${T('IN BANCA', 620, 360, '400 40px sans-serif', GOLD)}
+${T('888COIN ' + n(bank), 620, 388, '700 30px sans-serif', WHITE)}
+${T('PORTAFOGLIO', 620, 442, '400 40px sans-serif', GOLD)}
+${T('888COIN ' + n(wallet), 620, 470, '700 30px sans-serif', WHITE)}
+${T('TOTALE RUBATO', 620, 524, '400 40px sans-serif', RED)}
+${T('888COIN ' + n(stolen), 620, 548, '700 30px sans-serif', RED)}
+${T(cardNumber, 400, 810, '700 27px monospace', WHITE)}
+${T(iban, 400, 852, '400 25px monospace', GLDL)}
+</body></html>`
+}
 
-  txt(
-    userName,
-    560,
-    255,
-    '500 44px sans-serif',
-    GLDL,
-    SK
-  )
-
-  const x = 620
-  const cy = 360
-
-  txt(
-    'IN BANCA',
-    x,
-    cy,
-    '400 40px sans-serif',
-    GOLD,
-    SK
-  )
-
-  txt(
-    ` 888COIN ${Number(bank).toLocaleString('it-IT')}`,
-    x,
-    cy + 28,
-    '700 30px sans-serif',
-    WHITE,
-    SK
-  )
-
-  txt(
-    'PORTAFOGLIO',
-    x,
-    cy + 82,
-    '400 40px sans-serif',
-    GOLD,
-    SK
-  )
-
-  txt(
-    ` 888COIN ${Number(wallet).toLocaleString('it-IT')}`,
-    x,
-    cy + 110,
-    '700 30px sans-serif',
-    WHITE,
-    SK
-  )
-
-  txt(
-    'TOTALE RUBATO',
-    x,
-    cy + 164,
-    '400 40px sans-serif',
-    RED,
-    SK
-  )
-
-  txt(
-    ` 888COIN ${Number(stolen).toLocaleString('it-IT')}`,
-    x,
-    cy + 188,
-    '700 30px sans-serif',
-    RED,
-    SK
-  )
-
-  txt(
-    cardNumber,
-    400,
-    810,
-    '700 27px monospace',
-    WHITE,
-    SK2
-  )
-
-  txt(
-    iban,
-    400,
-    852,
-    '400 25px monospace',
-    GLDL,
-    SK2
-  )
-
-  return canvas.toBuffer('image/jpeg')
+async function renderCardJimp({ userName, bank, wallet, stolen, cardNumber, iban, bg }) {
+  const white = await Jimp.loadFont(Jimp.FONT_SANS_32_WHITE)
+  const white16 = await Jimp.loadFont(Jimp.FONT_SANS_16_WHITE)
+  const gold = await Jimp.loadFont(Jimp.FONT_SANS_32_YELLOW)
+  const n = (v) => Number(v || 0).toLocaleString('it-IT')
+  bg.print(white, 560, 220, String(userName).slice(0, 24))
+  bg.print(gold, 620, 320, 'IN BANCA')
+  bg.print(white16, 620, 350, '888COIN ' + n(bank))
+  bg.print(gold, 620, 400, 'PORTAFOGLIO')
+  bg.print(white16, 620, 430, '888COIN ' + n(wallet))
+  bg.print(gold, 620, 480, 'TOTALE RUBATO')
+  bg.print(white16, 620, 510, '888COIN ' + n(stolen))
+  bg.print(white, 400, 780, String(cardNumber))
+  bg.print(white16, 400, 825, String(iban))
+  return bg.getBufferAsync(Jimp.MIME_JPEG)
 }
 
 const handler = async (m, { conn, args }) => {
@@ -258,7 +176,7 @@ const handler = async (m, { conn, args }) => {
       {
         image: imgBuffer,
         mimetype: 'image/jpeg',
-        caption: `💳 *𝟴𝟴𝟴 𝗕𝗢𝗧* — @${who.split('@')[0]}\n💰 Totale: ${total.toLocaleString('it-IT')} 888COIN`,
+        caption: `💳 *${global?.nomebot || '888.BOT'}* — @${who.split('@')[0]}\n💰 Totale: ${total.toLocaleString('it-IT')} 888COIN`,
         mentions: [who]
       },
       { quoted: m }
