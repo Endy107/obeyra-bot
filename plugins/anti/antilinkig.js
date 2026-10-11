@@ -1,28 +1,35 @@
-//Plugin by Gab, Lucifero & 888 staff
+// Plugin by elixir, punisher & 888 staff
+import { LIMITS } from '../../lib/moderation.js'
 
-export async function before(m, { conn, isAdmin, isBotAdmin }) {
+const IG_REGEX = /(instagram\.com|instagr\.am)/i
+
+export async function before(m, { conn, isAdmin, isBotAdmin, isMods, isOwner, isROwner }) {
   const isMine = conn.user && (conn.user.jid || conn.user.id) &&
     typeof conn.decodeJid === 'function' &&
     conn.decodeJid(m.sender) === conn.decodeJid(conn.user.jid || conn.user.id)
-  if (isMine) return true;
-  if (m.isBaileys && m.fromMe) return true;
-  if (!m.isGroup) return false;
+  if (isMine) return true
+  if (m.isBaileys && m.fromMe) return true
+  if (!m.isGroup) return false
 
-  const chat = global.db.data.chats[m.chat];
-  if (!chat.antilinkig || chat.isBanned) return true;
+  const chat = global.db.data.chats[m.chat]
+  if (!chat?.antilinkig || chat?.isBanned) return true
 
-  if (isAdmin || !isBotAdmin) return true;
+  // Staff esente, e il bot deve essere admin per poter cancellare/espellere
+  if (isAdmin || isMods || isOwner || isROwner || !isBotAdmin) return true
 
-  const text = (m.text || '').toLowerCase();
-  const igRegex = /(instagram\.com|instagr\.am)/gi;
+  const text = (m.text || '').toLowerCase()
+  if (!IG_REGEX.test(text)) return true
 
-  if (!igRegex.test(text)) return true;
+  // Stesso contatore di warn / unwarn / warnlist
+  global.db.data.users ??= {}
+  global.db.data.users[m.sender] ??= { warn: 0 }
+  const user = global.db.data.users[m.sender]
+  user.warn = (Number(user.warn) || 0) + 1
 
-  let user = global.db.data.users[m.sender];
-  if (!user) global.db.data.users[m.sender] = { warnIg: 0 };
+  const maxWarn = LIMITS.MAX_WARN
+  const tag = `@${m.sender.split('@')[0]}`
 
-  let warn = global.db.data.users[m.sender].warnIg || 0;
-
+  // Cancella subito il messaggio
   await conn.sendMessage(m.chat, {
     delete: {
       remoteJid: m.chat,
@@ -30,30 +37,36 @@ export async function before(m, { conn, isAdmin, isBotAdmin }) {
       id: m.key.id,
       participant: m.sender
     }
-  });
+  }).catch(() => {})
 
-  warn++;
-  global.db.data.users[m.sender].warnIg = warn;
-
-  if (warn < 3) {
+  if (user.warn >= maxWarn) {
+    user.warn = 0
     await conn.sendMessage(m.chat, {
-      text: `⚠️ @${m.sender.split('@')[0]} 𝐢 𝐥𝐢𝐧𝐤 𝐝𝐢 𝐢𝐧𝐬𝐭𝐚𝐠𝐫𝐚𝐦 𝐧𝐨𝐧 𝐬𝐨𝐧𝐨 𝐜𝐨𝐧𝐬𝐞𝐧𝐭𝐢𝐭𝐢!!\n\n➣ 𝐖𝐚𝐫𝐧: ${warn} / 3`,
+      text:
+        `❌ *UTENTE ESPULSO*\n` +
+        `👤 Target: ${tag}\n` +
+        `⚙️ Azione: Rimozione automatica\n` +
+        `⛔ Motivo: Link Instagram (${maxWarn}/${maxWarn} avvertimenti)`,
       mentions: [m.sender]
-    });
-  } else {
-    global.db.data.users[m.sender].warnIg = 0;
-
-    await conn.sendMessage(m.chat, {
-      text: `🚫 @${m.sender.split('@')[0]} 𝐞𝐬𝐩𝐮𝐥𝐬𝐨 𝐩𝐞𝐫 𝐥𝐢𝐧𝐤 𝐢𝐧𝐬𝐭𝐚𝐠𝐫𝐚𝐦!!\n\n𝐰𝐚𝐫𝐧 𝐭𝐨𝐭𝐚𝐥𝐢: 𝟑/𝟑`,
-      mentions: [m.sender]
-    });
-
+    })
+    await new Promise(resolve => setTimeout(resolve, 1000))
     try {
-      await conn.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
+      await conn.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
     } catch (e) {
-      console.error('[antilinkig] Errore rimozione partecipante:', e || 'Errore non specificato');
+      console.error('[antilinkig] Errore rimozione partecipante:', e || 'Errore non specificato')
     }
+    return false
   }
 
-  return false;
+  await conn.sendMessage(m.chat, {
+    text:
+      `⚠️ *AVVERTIMENTO AUTOMATICO*\n` +
+      `👤 Target: ${tag}\n` +
+      `📝 Motivo: Link Instagram non consentiti\n` +
+      `📊 Sanzioni: [ ${user.warn}/${maxWarn} ]\n\n` +
+      `⮕ Al ${maxWarn}° avvertimento l'utente verrà espulso dal gruppo.`,
+    mentions: [m.sender]
+  })
+
+  return false
 }
