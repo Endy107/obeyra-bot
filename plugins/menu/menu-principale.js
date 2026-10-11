@@ -24,7 +24,7 @@ let handler = async (m, { conn, usedPrefix }) => {
   }
 
   const botName = global.db.data.nomedelbot || "𝟴𝟴𝟴 BOT"
-  const botVersion = global.db.data.version || "*1.3*"
+  const botVersion = global.db.data.version || "*1.4*"
 
   const fake = {
     key: {
