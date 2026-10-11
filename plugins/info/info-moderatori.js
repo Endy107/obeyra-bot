@@ -1,4 +1,4 @@
-// Plugin by elixir & punisher
+// Plugin by elixir, punisher & 888 staff
 import {
   ROLES,
   LIMITS,
@@ -136,8 +136,9 @@ export async function buildModsPanel({
   text += `⚙️ *Comandi moderatori*\n`
   text += `• 🔇 ${p}muta @utente [durata] — silenzia e cancella i suoi messaggi, mod: max ${LIMITS.MOD_MUTE_MAX_MS / 60000} min\n`
   text += `• 🔊 ${p}smuta @utente — toglie il mute e riattiva l’utente\n`
-  text += `• ⚠️ ${p}warn @utente motivo — ammonizione con motivo obbligatorio, mod: max ${LIMITS.MOD_MAX_WARN}, al 5° espulsione solo Admin-Owner\n`
-  text += `• ✅ ${p}unwarn @utente — toglie un warn, mod: 1 ogni ${LIMITS.MOD_UNWARN_COOLDOWN_MS / 60000} min\n`
+  text += `• ⚠️ ${p}warn @utente motivo — ammonizione con motivo obbligatorio, mod: max ${LIMITS.MOD_MAX_WARN}, al 5° espulsione solo Admin-Owner, cooldown ${LIMITS.MOD_WARN_COOLDOWN_MS / 1000}s\n`
+  text += `• ✅ ${p}unwarn @utente [ID|all] — toglie ultimo/ID specifico, all+reset solo Admin, mod: 1 ogni ${LIMITS.MOD_UNWARN_COOLDOWN_MS / 60000} min\n`
+  text += `• 📋 ${p}warnlist — utenti warnati del gruppo • 🔍 ${p}warninfo @utente — storico motivi e ID • 🧹 ${p}resetwarn @utente (Admin) • ⚙️ ${p}warnconfig (Admin)\n`
   text += `• 🚫 ${p}banuser @utente [durata] — blocca l’uso del bot, mod: solo temporaneo max ${LIMITS.MOD_BAN_MAX_MS / 60000} min\n`
   text += `• 🔓 ${p}unbanuser @utente — riattiva l’utente, mod: solo ban temporanei, permanenti solo Admin-Owner\n`
   text += `• 👻 ${p}hidetag testo — tag invisibile a tutti, salta gli AFK, mod: max ${LIMITS.MOD_HIDETAG_MAX} menzioni\n`
