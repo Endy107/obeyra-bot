@@ -1,4 +1,5 @@
-// Plugin DOX — 888 Premium Edition (PDF fix)
+const { default: pkg } = await import('../../package.json', { with: { type: 'json' } });
+// Plugin by elixir, punisher & 888 staff
 const providerISP = ['TIM SpA', 'Vodafone Italia', 'Wind Tre S.p.A', 'Fastweb S.p.A', 'Iliad Italia', 'Tiscali Italia', 'Eolo S.p.A']
 const sistemiOp = ['Windows 11 Pro', 'macOS Sonoma 14.5', 'Ubuntu 24.04 LTS', 'Android 14', 'iOS 17.5', 'ChromeOS 128']
 const browserUA = ['Chrome 125.0.6422.60', 'Safari 17.5', 'Firefox 127.0', 'Edge 125.0.2535.51', 'Opera 111.0']
@@ -26,7 +27,7 @@ const handler = async (m, { conn, text }) => {
   }
 
   let key = await conn.reply(m.chat,
-`⚡ 888 BOT DOX ENGINE v4.0
+`⚡ ${pkg.name} DOX ENGINE v4.0
 
 Avvio scansione OSINT...
 Fingerprinting dispositivo...
@@ -66,7 +67,7 @@ Attendere qualche secondo...`, m)
   const socialProfili = `Instagram: @${nomeCompleto.toLowerCase().replace(/[^a-z0-9]/g, '_')}\nFacebook: ${nomeCompleto.replace(/ /g, '.')}\nTikTok: @${nomeCompleto.split(' ')[0].toLowerCase()}_${randomInt(100, 999)}`
 
   const reportText = `
-⚡ 888 BOT DOX REPORT
+⚡ ${pkg.name} DOX REPORT
 
 🎯 DATI ANAGRAFICI
 • Nome: ${nomeCompleto}
@@ -104,7 +105,7 @@ Report generato il ${new Date().toLocaleString('it-IT')}
 `.trim()
 
   const mentions = target.type === 'jid' ? [target.value] : []
-  await conn.sendMessage(m.chat, { text: reportText, edit: key, mentions })
+  await conn.sendMessage(m.chat, { text: reportText, edit: key?.key || key, mentions })
 
   try {
     const pdfBuffer = generaPDFBuffer({
@@ -155,9 +156,6 @@ function generaCF(nome) {
   return cf
 }
 
-// ---------- PDF ----------
-
-// Rende il testo compatibile con WinAnsi/latin1 (accenti ok, simboli strani -> equivalenti)
 function pdfSafe(str) {
   return String(str)
     .replace(/[—–]/g, '-')
@@ -172,7 +170,6 @@ function escapePDF(str) {
   return pdfSafe(str).replace(/[\\()]/g, '\\$&')
 }
 
-// A capo automatico
 function wrapLine(line, max = 82) {
   const out = []
   let cur = ''
@@ -191,13 +188,12 @@ function wrapLine(line, max = 82) {
 function generaPDFBuffer(data) {
   const ora = new Date().toLocaleString('it-IT', { timeZone: 'Europe/Rome' })
 
-  // Ogni riga: { t: testo, b: grassetto, s: dimensione }
   const righe = []
   const titolo = t => righe.push({ t, b: true, s: 20 })
   const sezione = t => { righe.push({ t: '', s: 11 }); righe.push({ t, b: true, s: 13 }) }
   const voce = (k, v) => wrapLine(`${k}: ${v}`).forEach(t => righe.push({ t, s: 11 }))
 
-  titolo('888 BOT - DOX REPORT')
+  titolo(`${pkg.name} - DOX REPORT`)
 
   sezione('IDENTITA')
   voce('Nome', data.nomeCompleto)
@@ -234,7 +230,6 @@ function generaPDFBuffer(data) {
   righe.push({ t: `Report generato il ${ora}`, s: 9 })
   righe.push({ t: 'Dati simulati - uso ricreativo', s: 9 })
 
-  // Impaginazione
   const PAGE_W = 595, PAGE_H = 842, MARGIN_X = 50, TOP = 790, BOTTOM = 50
   const pagine = [[]]
   let y = TOP
@@ -245,7 +240,6 @@ function generaPDFBuffer(data) {
     y -= lh
   }
 
-  // Oggetti PDF: 1 catalog, 2 pages, 3 Helvetica, 4 Helvetica-Bold, poi (page, content) per ogni pagina
   const n = pagine.length
   const objs = []
   const kids = pagine.map((_, i) => `${5 + i * 2} 0 R`).join(' ')
@@ -264,7 +258,6 @@ function generaPDFBuffer(data) {
     objs.push(`<< /Length ${Buffer.byteLength(stream, 'latin1')} >>\nstream\n${stream}\nendstream`)
   })
 
-  // Costruzione file con offset reali
   let out = '%PDF-1.4\n'
   const offsets = []
   objs.forEach((body, i) => {
