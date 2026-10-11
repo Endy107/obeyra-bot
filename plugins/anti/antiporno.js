@@ -2,7 +2,7 @@
 import { LIMITS } from '../../lib/moderation.js'
 
 const PORN_PATTERNS = [
-  // Domini
+  
   /pornhub\.com/i,
   /xvideos\.com/i,
   /xnxx\.com/i,
@@ -21,7 +21,7 @@ const PORN_PATTERNS = [
   /tnaflix\.com/i,
   /motherless\.com/i,
 
-  // Parole (con confini di parola per evitare falsi positivi)
+  
   /\bporn(o|hub)?\b/i,
   /\bhentai\b/i,
   /\bnudes?\b/i,
@@ -50,14 +50,14 @@ const matchesPorn = (text = '') => {
 }
 
 export async function before(m, { conn, isAdmin, isBotAdmin, isMods, isOwner, isROwner }) {
-  // Ignora i messaggi del bot stesso (evita warn dai suoi avvisi)
+  
   if (m.fromMe || m.isBaileys || m.sender === conn.user?.jid) return true
   if (!m.isGroup) return true
 
   const chat = global.db.data.chats[m.chat]
   if (!chat?.antiporno || chat?.isBanned) return true
 
-  // Staff esente, e il bot deve essere admin per poter cancellare/espellere
+  
   if (isAdmin || isMods || isOwner || isROwner || !isBotAdmin) return true
 
   const text = (m.text || '').toString()
@@ -86,7 +86,7 @@ export async function before(m, { conn, isAdmin, isBotAdmin, isMods, isOwner, is
   const maxWarn = LIMITS.MAX_WARN
   const tag = `@${m.sender.split('@')[0]}`
 
-  // Cancella subito il messaggio
+  
   await conn.sendMessage(m.chat, {
     delete: {
       remoteJid: m.chat,
