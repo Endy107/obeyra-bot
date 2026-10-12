@@ -16,6 +16,7 @@ import NodeCache from 'node-cache';
 import { getAggregateVotesInPollMessage, toJid } from '@888-BOT/888baileys';
 
 const { proto } = await import('@888-BOT/888baileys');
+import pkg from './package.json' with { type: 'json' };
 
 let _printModule = null;
 const _getPrintModule = async () => {
@@ -170,7 +171,32 @@ function initResponseHandler(conn) {
     };
 }
 
+export function ensureGroupCacheListeners(conn) {
+    if (!conn?.ev) return false
+    try {
+        if (!conn.__ghostAdminListeners) {
+            conn.ev.on('group-participants.update', (update) => {
+                try {
+                    const id = update?.id
+                    if (!id) return
+                    global.groupCache?.del?.(id)
+                } catch {}
+            });
+            conn.ev.on('groups.update', (updates) => {
+                try {
+                    for (const update of (Array.isArray(updates) ? updates : [updates])) {
+                        if (update?.id) global.groupCache?.del?.(update.id)
+                    }
+                } catch {}
+            });
+            conn.__ghostAdminListeners = true
+        }
+    } catch { return false }
+    return true
+}
+
 if (!global.adminListenerSet && global.conn) {
+    ensureGroupCacheListeners(global.conn)
     global.conn.ev.on('group-participants.update', ({ id, action }) => {
         try {
             if (action === 'promote' || action === 'demote') global.groupCache.del(id);
@@ -289,7 +315,7 @@ if (global.conn?.ws) {
 
                         try {
                 await global.conn.sendMessage(callerId, {
-                    text: `📵 *Chiamata rifiutata*\n━━━━━━━━━━━━━━━\n⛔ Le chiamate vocali e video sono disabilitate su questo bot.\n━━━━━━━━━━━━━━━\n_888 BOT_`
+                    text: `📵 *Chiamata rifiutata*\n━━━━━━━━━━━━━━━\n⛔ Le chiamate vocali e video sono disabilitate su questo bot.\n━━━━━━━━━━━━━━━\n_${pkg.name}_`
                 });
             } catch {}
 
@@ -357,9 +383,9 @@ function calcAdminFlags(conn, participants, groupMetadata, normalizedSender, nor
     };
 }
 
-function canUseModoadmin(chat, isGroup, isAdmin, isOwner, isROwner) {
+function canUseModoadmin(chat, isGroup, isAdmin, isOwner, isROwner, isMods) {
     if (!isGroup || !chat.modoadmin) return true;
-    return isAdmin || isOwner || isROwner;
+    return isAdmin || isOwner || isROwner || isMods;
 }
 
 export async function handler(chatUpdate) {
@@ -629,16 +655,23 @@ export async function handler(chatUpdate) {
             goodbye: false,
             ai: false,
             vocali: false,
-            antiporno: false,
+            antiporno: true,
+            antigore: true,
+            antitrava: true,
+            antibot: true,
+            antiBot: true,
+            antinuke: true,
+            modoadmin: true,
+            antiLink: true,
+            logrichieste: true,
             antioneview: false,
             autolevelup: false,
             antivoip: false,
             rileva: false,
-            modoadmin: false,
-            antiLink: false,
             antiLink2: false,
             slowmode: false,
             reaction: false,
+            provocazioni: false,
             antispam: false,
             tagCount: 0,
             tagLastReset: 0,
@@ -649,6 +682,12 @@ export async function handler(chatUpdate) {
             topBlasphemy: {}
         };
         const chat = global.db.data.chats[m.chat] ??= chatDefaults;
+        for (const k of ['antiporno', 'antigore', 'antitrava', 'antibot', 'antiBot', 'antinuke', 'modoadmin', 'antiLink', 'logrichieste']) {
+            if (chat[k] === undefined || chat[k] === null) chat[k] = true;
+        }
+        for (const k of ['antiraid', 'antiraidlink', 'antiraidlinkPunish', 'antiraidlinkSilent', 'antiraidWhitelist', 'antighost', 'antighostWindow', 'antighostIgnore', 'antighostLog', 'antipayment']) {
+            if (k in chat) delete chat[k];
+        }
         chat.topUsers ??= {};
         chat.topRich ??= {};
         chat.topBlasphemy ??= {};
@@ -659,9 +698,7 @@ export async function handler(chatUpdate) {
             antiprivato: true,
             soloCreatore: false,
             status: 0,
-            //anticall disattivato di default: deve essere attivato esplicitamente
             anticall: false,
-            //blocco del numero solo se richiesto esplicitamente
             anticallBlock: false
         };
         const settings = global.db.data.settings[this.user.jid] ??= settingsDefaults;
@@ -902,7 +939,6 @@ if (!m.isGroup && global.db.data.settings[this.user.jid]?.antiprivato && !isOwne
                 const { results } = await runBeforeAll(beforeHooks, {
                     timeout: global.busTimeout ?? 500
                 });
-                // return truthy da before() = "ignora SOLO questo plugin"
                 for (let i = 0; i < results.length; i++) {
                     const r = results[i];
                     if (r.status === 'ok' && r.value) skip.add(beforeHooks[i][0]);
@@ -1066,7 +1102,7 @@ if (typeof plugin !== 'function') continue;
                     }
                 }
 
-                if (!canUseModoadmin(chat, m.isGroup, isAdmin, isOwner, isROwner)) break;
+                if (!canUseModoadmin(chat, m.isGroup, isAdmin, isOwner, isROwner, isMods)) break;
                 if (m.isGroup && chat.antiporno && plugin.tags?.includes('nsfw') && !isAdmin && !isOwner && !isROwner) {
                     fail('restrict', m, this);
                     continue;
@@ -1095,7 +1131,7 @@ if (typeof plugin !== 'function') continue;
                     fail('owner', m, this);
                     continue;
                 }
-                if (plugin.mods && !isMods && !isAdmin) {
+                if (plugin.mods && !isMods && !isAdmin && !isOwner && !isROwner) {
                     fail('mods', m, this);
                     continue;
                 }
@@ -1166,7 +1202,6 @@ if (typeof plugin !== 'function') continue;
                 };
 
                 try {
-                    // nome univoco: __filename distingue plugin con command identici
                     const cmdName = m.plugin || __filename || 'plugin';
                     const outcome = await runGuarded(
                         `${cmdName}`,
