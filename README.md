@@ -8,12 +8,12 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Versione-1.4-3da5ff?style=flat-square&logo=semanticrelease&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Open_Source-%E2%9D%A4%EF%B8%8F-111?style=flat-square&logo=opensourceinitiative&logoColor=ff6b9d"/>
-  <img src="https://img.shields.io/badge/Node.js-JavaScript-339933?style=flat-square&logo=nodedotjs&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Licenza-Apache--2.0-111?style=flat-square&logo=apache&logoColor=ff6b9d"/>
+  <img src="https://img.shields.io/badge/Node.js-%E2%89%A5_20.2-339933?style=flat-square&logo=nodedotjs&logoColor=white"/>
   <img src="https://img.shields.io/badge/WhatsApp-Multi--Device-25d366?style=flat-square&logo=whatsapp&logoColor=white"/>
-  <img src="https://img.shields.io/badge/AI-OpenAI-7a7bff?style=flat-square&logo=openai&logoColor=white"/>
+  <img src="https://img.shields.io/badge/IA-Groq_%C2%B7_Gemini_%C2%B7_OpenRouter-7a7bff?style=flat-square"/>
   <img src="https://img.shields.io/badge/Termux-Supportato-3ddc84?style=flat-square&logo=android&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Plugin-381-b04dff?style=flat-square&logo=puzzle&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Plugin-371-b04dff?style=flat-square&logo=puzzle&logoColor=white"/>
 </p>
 
 <p align="center">
@@ -21,8 +21,8 @@
 </p>
 
 <p align="center">
-  <b><i>Bot WhatsApp modulare scritto in Node.js — moderazione, intrattenimento, utility e AI in un unico progetto.</i></b><br/>
-  <sub>381 plugin · 9 categorie · 13 moduli anti · installabile da Android con Termux</sub>
+  <b><i>Bot WhatsApp modulare scritto in Node.js — moderazione, intrattenimento, utility e IA in un unico progetto.</i></b><br/>
+  <sub>371 plugin · 10 categorie · 20 moduli anti · installabile da Android con Termux</sub>
 </p>
 
 <h2 align="center">
@@ -54,18 +54,18 @@
   <img src="https://img.shields.io/badge/01-%F0%9F%9A%80_PANORAMICA-3da5ff?style=flat-square" height="22"/>
 </h2>
 
-<p>888 BOT è basato su un'architettura a plugin: ogni funzione è un modulo indipendente, caricato automaticamente all'avvio. Puoi aggiungere, rimuovere o modificare comandi senza toccare il resto del codice.</p>
+<p>888 BOT è basato su un'architettura a plugin: ogni funzione è un file indipendente, caricato automaticamente all'avvio e ricaricato a caldo quando viene modificato. Puoi aggiungere, rimuovere o cambiare comandi senza toccare il resto del codice.</p>
 
 <table>
 <tr>
 <td align="center" width="140">
-  <img src="https://img.shields.io/badge/381-b04dff?style=for-the-badge&logo=puzzle&logoColor=white" height="28"/><br/><sub><b>Plugin</b></sub>
+  <img src="https://img.shields.io/badge/371-b04dff?style=for-the-badge&logo=puzzle&logoColor=white" height="28"/><br/><sub><b>Plugin</b></sub>
 </td>
 <td align="center" width="140">
-  <img src="https://img.shields.io/badge/9-3da5ff?style=for-the-badge&logo=folders&logoColor=white" height="28"/><br/><sub><b>Categorie</b></sub>
+  <img src="https://img.shields.io/badge/10-3da5ff?style=for-the-badge&logo=folders&logoColor=white" height="28"/><br/><sub><b>Categorie</b></sub>
 </td>
 <td align="center" width="140">
-  <img src="https://img.shields.io/badge/13-b04dff?style=for-the-badge&logo=shield&logoColor=white" height="28"/><br/><sub><b>Moduli Anti</b></sub>
+  <img src="https://img.shields.io/badge/20-b04dff?style=for-the-badge&logo=shield&logoColor=white" height="28"/><br/><sub><b>Moduli Anti</b></sub>
 </td>
 <td align="center" width="140">
   <img src="https://img.shields.io/badge/4-3da5ff?style=for-the-badge&logo=users&logoColor=white" height="28"/><br/><sub><b>Staff</b></sub>
@@ -80,34 +80,34 @@
 <tr>
 <td width="50%">
 
-### 🛡️ Motore di Sicurezza
-Ogni messaggio viene analizzato dai **13 moduli anti** prima di essere gestito: controlli automatici su link, spam, flood, chiamate e messaggi malformati.
+### 🛡️ Protezione dei gruppi
+**20 moduli anti** che lavorano in automatico: link, flood, tossicità, contenuti vietati, raid, nuke e bot indesiderati. Si attivano gruppo per gruppo.
 
 ### 🧩 Sistema a Plugin
-Nove categorie riconoscibili dal prefisso del file: `ADMIN`, `FUN`, `RPG`, `INFO`, `OWNER`, `GP`, `MENU`, `Anti-`, `UTILITY`. Ogni plugin si carica da solo.
+Dieci categorie riconoscibili dalla cartella: `admin`, `fun`, `rpg`, `info`, `owner`, `gp`, `menu`, `anti`, `utility`, `tools`. Ogni plugin si carica da solo.
 
 ### 💾 Dati in Locale
-Whitelist, impostazioni e database restano su file, sul tuo dispositivo. Nessun cloud per i dati del bot.
+Database, whitelist e impostazioni restano su file, sul tuo dispositivo. Nessun cloud per i dati del bot.
 
 </td>
 <td width="50%">
 
-### 📞 Verifica numeri VoIP
-Rileva i numeri virtuali tramite API, con **fallback Puppeteer**: se l'API non risponde, un browser headless esegue la verifica al suo posto.
+### ✨ IA multi-provider
+Risposte tramite **Groq, Gemini e OpenRouter** con fallback automatico tra provider e cache delle risposte per 30 minuti. Puoi usare i piani gratuiti, inserendo le tue chiavi in `config.js`.
 
-### 🔄 Aggiornamenti integrati
-Controlla il remote `origin`, scarica le modifiche e ricarica a caldo i moduli cambiati, senza riavvio manuale.
+### 🌍 Filtro numeri esteri
+Il modulo anti-VoIP rimuove dai gruppi i numeri non italiani, utile contro account virtuali e raid con numeri stranieri.
 
-### ✨ Integrazione OpenAI
-Risposte contestuali, riassunti delle chat e moderazione semantica, con rate limit e coda di invio per limitare il consumo della quota.
+### 🤖 Sub-bot
+Possono essere collegati più bot dallo stesso progetto, ognuno con la propria sessione.
 
 </td>
 </tr>
 <tr>
 <td colspan="2">
 
-### 🖼️ Scanner hardware grafico
-Genera un riepilogo visivo delle risorse del dispositivo tramite Canvas.
+### 📊 Stato e diagnostica
+Comandi per controllare stato del bot, uso di CPU e memoria, prestazioni e log, per tenere sotto controllo il dispositivo su cui gira.
 
 </td>
 </tr>
@@ -120,22 +120,23 @@ Genera un riepilogo visivo delle risorse del dispositivo tramite Canvas.
   <img src="https://img.shields.io/badge/02-%F0%9F%A7%A9_CATEGORIE_PLUGIN-b04dff?style=flat-square" height="22"/>
 </h2>
 
-<p>I 381 plugin sono divisi in nove categorie, riconoscibili dal prefisso del nome file. Per l'elenco completo dei comandi usa il menu direttamente in chat.</p>
+<p>I 371 plugin sono divisi in dieci categorie, corrispondenti alle cartelle dentro <code>plugins/</code>. Per l'elenco completo dei comandi usa il menu direttamente in chat.</p>
 
 <table>
 <tr>
 <th align="left">Categoria</th>
 <th align="left">Descrizione</th>
 </tr>
-<tr><td><code><b>ADMIN</b></code></td><td>🛠️ Strumenti di moderazione per gli amministratori dei gruppi</td></tr>
-<tr><td><code><b>FUN</b></code></td><td>🎮 Minigiochi, meme e comandi di intrattenimento</td></tr>
-<tr><td><code><b>RPG</b></code></td><td>💰 Sistema di economia e progressione virtuale</td></tr>
-<tr><td><code><b>INFO</b></code></td><td>📚 Informazioni e consultazione rapida</td></tr>
-<tr><td><code><b>OWNER</b></code></td><td>👑 Comandi riservati al proprietario del bot</td></tr>
-<tr><td><code><b>GP</b></code></td><td>👥 Gestione e personalizzazione dei gruppi</td></tr>
-<tr><td><code><b>MENU</b></code></td><td>📋 Menu dinamici con navigazione a pulsanti</td></tr>
-<tr><td><code><b>Anti-</b></code></td><td>🛡️ Moduli di protezione automatica</td></tr>
-<tr><td><code><b>UTILITY</b></code></td><td>🧰 Strumenti di uso quotidiano</td></tr>
+<tr><td><code><b>admin</b></code></td><td>🛠️ Strumenti di moderazione per gli amministratori dei gruppi</td></tr>
+<tr><td><code><b>anti</b></code></td><td>🛡️ Moduli di protezione automatica dei gruppi</td></tr>
+<tr><td><code><b>fun</b></code></td><td>🎮 Minigiochi, meme e comandi di intrattenimento</td></tr>
+<tr><td><code><b>rpg</b></code></td><td>💰 Sistema di economia e progressione virtuale</td></tr>
+<tr><td><code><b>gp</b></code></td><td>👥 Gestione e personalizzazione dei gruppi</td></tr>
+<tr><td><code><b>info</b></code></td><td>📚 Informazioni, stato del bot e consultazione rapida</td></tr>
+<tr><td><code><b>utility</b></code></td><td>🧰 Strumenti di uso quotidiano</td></tr>
+<tr><td><code><b>menu</b></code></td><td>📋 Menu dinamici con navigazione a pulsanti</td></tr>
+<tr><td><code><b>owner</b></code></td><td>👑 Gestione del bot riservata al proprietario: permessi, sessioni, sub-bot, plugin e diagnostica</td></tr>
+<tr><td><code><b>tools</b></code></td><td>🔧 Strumenti di test e analisi delle prestazioni</td></tr>
 </table>
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=1e1e29&height=2&section=header&text=&fontSize=0" width="100%"/>
@@ -145,26 +146,32 @@ Genera un riepilogo visivo delle risorse del dispositivo tramite Canvas.
   <img src="https://img.shields.io/badge/03-%F0%9F%9B%A1%EF%B8%8F_SICUREZZA-3da5ff?style=flat-square" height="22"/>
 </h2>
 
-<p>Tredici moduli di difesa a strati, che lavorano in automatico e coprono tre aree.</p>
+<p>Venti moduli di difesa a strati, organizzati in quattro aree. Si attivano o disattivano per singolo gruppo.</p>
 
 <table>
 <tr>
-<td width="33%" valign="top">
+<td width="25%" valign="top">
 
-#### 👥 Protezione dei gruppi
-Contrasto a link indesiderati, spam, flood, raffiche di sticker e linguaggio tossico, con avvisi progressivi e sanzioni.
-
-</td>
-<td width="33%" valign="top">
-
-#### 📡 Gestione degli eventi
-Chiamate in entrata, messaggi eliminati e contenuti temporanei a visualizzazione singola.
+#### 🔗 Link e contenuti
+Link di WhatsApp, Instagram, Telegram e TikTok, media, parole vietate e contenuti gore o porno.
 
 </td>
-<td width="33%" valign="top">
+<td width="25%" valign="top">
+
+#### 🚨 Raid e takeover
+Anti-raid, anti-nuke e anti-bot, con whitelist locali per i membri fidati.
+
+</td>
+<td width="25%" valign="top">
+
+#### 👤 Utenti e abusi
+Flood, messaggi tossici, account fantasma e numeri esteri.
+
+</td>
+<td width="25%" valign="top">
 
 #### 🧱 Stabilità
-Difese contro messaggi malformati o progettati per bloccare o rallentare WhatsApp e il bot stesso.
+Difese contro messaggi malformati o progettati per bloccare WhatsApp e il bot.
 
 </td>
 </tr>
@@ -235,6 +242,7 @@ Difese contro messaggi malformati o progettati per bloccare o rallentare WhatsAp
 | Requisito | Dettaglio |
 |-----------|-----------|
 | 📱 **Android 8.0+** | Con Termux scaricato da [F-Droid](https://f-droid.org/packages/com.termux/) (non dal Play Store) |
+| 🟢 **Node.js 20.2+** | Richiesto dal progetto, installato con i comandi qui sotto |
 | 💾 **~500 MB liberi** | Per Node.js, FFmpeg, ImageMagick e Yarn |
 | 📶 **Connessione stabile** | Per l'abbinamento a WhatsApp e per gli aggiornamenti |
 | 📱 **Un secondo dispositivo** | Per scansionare il QR code al primo avvio |
@@ -259,13 +267,15 @@ yarn install
 yarn start
 ```
 
-Al primo avvio scansiona il **QR code** da WhatsApp (*Dispositivi collegati*) per abbinare il bot.
+Al primo avvio scegli come collegare WhatsApp, con QR code o con codice di abbinamento (`node 888.js qr` oppure `node 888.js code`), da *Dispositivi collegati*.
 
 > 💡 **Consiglio:** dopo l'avvio esegui `termux-wake-lock` così Android non sospende il bot.
 
+> 🧩 **Se `yarn install` segnala errori su `canvas`:** installa le librerie grafiche con `pkg install libcairo pango libjpeg-turbo giflib libpixman pkg-config freetype fontconfig python clang make -y` e riprova.
+
 <h3>⚙️ Configurazione</h3>
 
-Prima di un uso reale, controlla il file `config.js` e imposta i tuoi dati: numero del proprietario e chiavi API per le funzioni che le richiedono, come l'integrazione OpenAI.
+Prima di un uso reale, apri `config.js` e imposta i tuoi dati: numero del proprietario e chiavi API per le funzioni IA (**Groq**, **Gemini**, **OpenRouter**). Senza chiavi, i comandi IA non rispondono.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=1e1e29&height=2&section=header&text=&fontSize=0" width="100%"/>
 
@@ -274,11 +284,12 @@ Prima di un uso reale, controlla il file `config.js` e imposta i tuoi dati: nume
   <img src="https://img.shields.io/badge/06-%F0%9F%94%84_AGGIORNAMENTI-b04dff?style=flat-square" height="22"/>
 </h2>
 
-<p>Il bot controlla il repository remoto <code>origin</code>, scarica le modifiche e ricarica a caldo i moduli cambiati.</p>
+<p>I plugin vengono ricaricati a caldo quando i file cambiano. L'aggiornamento del bot alla versione più recente si fa invece con un comando riservato al proprietario.</p>
 
+- **Aggiornamento:** `.aggiorna` (alias `.update` e `.aggiornabot`) scarica l'ultima versione dal ramo `main` del repository `origin`.
+- ⚠️ **Attenzione:** l'aggiornamento esegue un `git reset --hard`, quindi **sovrascrive le modifiche locali** ai file del repository. Fai un backup prima di aggiornare.
 - Le novità vengono annunciate prima sul [canale WhatsApp](https://whatsapp.com/channel/0029Vb8Y0igGufJ0xMYJmU40) e poi su GitHub.
-- Se usi una copia modificata (fork), controlla a quale repository punta `origin`, così gli aggiornamenti arrivano dalla fonte che ti aspetti.
-- Se hai personalizzato dei file, fai un backup prima di aggiornare.
+- Se usi un fork, controlla a quale repository punta `origin`, così gli aggiornamenti arrivano dalla fonte che ti aspetti.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=1e1e29&height=2&section=header&text=&fontSize=0" width="100%"/>
 
@@ -289,7 +300,7 @@ Prima di un uso reale, controlla il file `config.js` e imposta i tuoi dati: nume
 
 - **Uso non ufficiale:** 888 BOT è un progetto indipendente, non affiliato a WhatsApp o Meta. L'uso di bot su WhatsApp può violare i termini di servizio e comportare la sospensione del numero. **Usa un numero secondario**, non quello personale.
 - **Responsabilità:** l'uso del bot e dei suoi comandi è a tuo carico. Rispetta la privacy e le regole dei gruppi in cui lo inserisci.
-- **Chiavi API:** non pubblicare mai `config.js` con le tue chiavi o credenziali.
+- **Chiavi API:** non pubblicare mai `config.js` con le tue chiavi o credenziali. Se una chiave è finita per errore su GitHub, revocala e creane una nuova.
 - **Segnalazioni:** se trovi un problema, contatta lo staff oppure apri una issue su GitHub.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=1e1e29&height=2&section=header&text=&fontSize=0" width="100%"/>
@@ -318,7 +329,7 @@ Prima di un uso reale, controlla il file `config.js` e imposta i tuoi dati: nume
 <p align="center">
   <sub><b>888 BOT</b> è un progetto indipendente, non affiliato a WhatsApp o a Meta.</sub><br/>
   <sub>Installalo, usalo nei tuoi gruppi, rispetta i termini di servizio.</sub><br/>
-  <sub>v1.4 · © 2026</sub>
+  <sub>v1.4 · Apache-2.0 · © 2026</sub>
 </p>
 
 <p align="center">
