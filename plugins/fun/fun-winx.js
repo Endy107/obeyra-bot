@@ -1,4 +1,4 @@
-//Plugin by Elixir
+// Plugin by elixir, punisher & 888 staff
 import fs from 'fs'
 
 let handler = async (m, { conn }) => {
@@ -33,3 +33,4 @@ export default handler
 
 function pickRandom(list) {
     return list[Math.floor(Math.random() * list.length)]
+}
