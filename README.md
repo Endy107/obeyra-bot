@@ -2,18 +2,18 @@
 
 <h1 align="center">
   <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=32&duration=3000&pause=800&color=3DA5FF&center=true&vCenter=true&repeat=false&width=520&height=52&lines=%E2%9A%A1+888+%3CBOT%3E+%E2%9A%A1;Next+Gen+WhatsApp+Bot;Node.js+%E2%80%A2+Modular+%E2%80%A2+Dark" alt="888BOT Typing SVG"/>
+    <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=32&duration=3000&pause=800&color=3DA5FF&center=true&vCenter=true&repeat=false&width=560&height=52&lines=%E2%9A%A1+888+%3CBOT%3E+%E2%9A%A1;Bot+WhatsApp+modulare;Node.js+%E2%80%A2+Plugin+%E2%80%A2+Sicurezza" alt="888BOT Typing SVG"/>
   </a>
 </h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Theme-Dark_0a0a0a-0a0a0a?style=flat-square&logo=visualstudiocode&logoColor=3da5ff&logoWidth=16"/>
+  <img src="https://img.shields.io/badge/Versione-1.4-3da5ff?style=flat-square&logo=semanticrelease&logoColor=white"/>
   <img src="https://img.shields.io/badge/Open_Source-%E2%9D%A4%EF%B8%8F-111?style=flat-square&logo=opensourceinitiative&logoColor=ff6b9d"/>
-  <img src="https://img.shields.io/badge/Maintained-Yes_888-888?style=flat-square&logo=statuspage&logoColor=3da5ff"/>
-  <img src="https://img.shields.io/badge/Speed-Ultra_Fast_000-000?style=flat-square&logo=speedtest&logoColor=b04dff"/>
-  <img src="https://img.shields.io/badge/AI-Powered_888-888?style=flat-square&logo=openai&logoColor=3da5ff"/>
-  <img src="https://img.shields.io/badge/Termux-Ready_888-888?style=flat-square&logo=android&logoColor=3ddc84"/>
-  <img src="https://img.shields.io/badge/WhatsApp-MD_000-000?style=flat-square&logo=whatsapp&logoColor=25d366"/>
+  <img src="https://img.shields.io/badge/Node.js-JavaScript-339933?style=flat-square&logo=nodedotjs&logoColor=white"/>
+  <img src="https://img.shields.io/badge/WhatsApp-Multi--Device-25d366?style=flat-square&logo=whatsapp&logoColor=white"/>
+  <img src="https://img.shields.io/badge/AI-OpenAI-7a7bff?style=flat-square&logo=openai&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Termux-Supportato-3ddc84?style=flat-square&logo=android&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Plugin-381-b04dff?style=flat-square&logo=puzzle&logoColor=white"/>
 </p>
 
 <p align="center">
@@ -21,12 +21,12 @@
 </p>
 
 <p align="center">
-  <b><i>Bot WhatsApp modulare scritto in Node.js — costruito tra chat e test notturni, aggiornato a mano.</i></b><br/>
-  <sub>408 plugin · 13 moduli anti · 9 categorie · uptime 99.98%</sub>
+  <b><i>Bot WhatsApp modulare scritto in Node.js — moderazione, intrattenimento, utility e AI in un unico progetto.</i></b><br/>
+  <sub>381 plugin · 9 categorie · 13 moduli anti · installabile da Android con Termux</sub>
 </p>
 
 <h2 align="center">
-  <img src="https://img.shields.io/badge/%F0%9F%94%97_OFFICIAL_LINKS-3da5ff?style=for-the-badge&logoColor=white" height="22"/>
+  <img src="https://img.shields.io/badge/%F0%9F%94%97_LINK_UFFICIALI-3da5ff?style=for-the-badge&logoColor=white" height="22"/>
 </h2>
 
 <p align="center">
@@ -51,15 +51,15 @@
 
 
 <h2>
-  <img src="https://img.shields.io/badge/01-%F0%9F%9A%80_SYSTEM_OVERVIEW-3da5ff?style=flat-square" height="22"/>
+  <img src="https://img.shields.io/badge/01-%F0%9F%9A%80_PANORAMICA-3da5ff?style=flat-square" height="22"/>
 </h2>
 
-<p>Sei sottosistemi che collaborano: se uno cade, gli altri non se ne accorgono. È questa la scelta che tiene il bot in piedi da più tempo di qualunque funzione singola.</p>
+<p>888 BOT è basato su un'architettura a plugin: ogni funzione è un modulo indipendente, caricato automaticamente all'avvio. Puoi aggiungere, rimuovere o modificare comandi senza toccare il resto del codice.</p>
 
 <table>
 <tr>
 <td align="center" width="140">
-  <img src="https://img.shields.io/badge/408-b04dff?style=for-the-badge&logo=puzzle&logoColor=white" height="28"/><br/><sub><b>Plugin</b></sub>
+  <img src="https://img.shields.io/badge/381-b04dff?style=for-the-badge&logo=puzzle&logoColor=white" height="28"/><br/><sub><b>Plugin</b></sub>
 </td>
 <td align="center" width="140">
   <img src="https://img.shields.io/badge/9-3da5ff?style=for-the-badge&logo=folders&logoColor=white" height="28"/><br/><sub><b>Categorie</b></sub>
@@ -68,13 +68,10 @@
   <img src="https://img.shields.io/badge/13-b04dff?style=for-the-badge&logo=shield&logoColor=white" height="28"/><br/><sub><b>Moduli Anti</b></sub>
 </td>
 <td align="center" width="140">
-  <img src="https://img.shields.io/badge/5-3da5ff?style=for-the-badge&logo=users&logoColor=white" height="28"/><br/><sub><b>Staff</b></sub>
+  <img src="https://img.shields.io/badge/4-3da5ff?style=for-the-badge&logo=users&logoColor=white" height="28"/><br/><sub><b>Staff</b></sub>
 </td>
 <td align="center" width="140">
-  <img src="https://img.shields.io/badge/99.98%25-b04dff?style=for-the-badge&logo=activity&logoColor=white" height="28"/><br/><sub><b>Uptime</b></sub>
-</td>
-<td align="center" width="140">
-  <img src="https://img.shields.io/badge/38ms-3da5ff?style=for-the-badge&logo=speedtest&logoColor=white" height="28"/><br/><sub><b>Latenza</b></sub>
+  <img src="https://img.shields.io/badge/1.4-b04dff?style=for-the-badge&logo=semanticrelease&logoColor=white" height="28"/><br/><sub><b>Versione</b></sub>
 </td>
 </tr>
 </table>
@@ -84,100 +81,90 @@
 <td width="50%">
 
 ### 🛡️ Motore di Sicurezza
-Pipeline a stadi con **13 moduli anti**: ogni messaggio passa per analisi, punteggio e sanzione prima di arrivare in chat. Nulla lo salta.
+Ogni messaggio viene analizzato dai **13 moduli anti** prima di essere gestito: controlli automatici su link, spam, flood, chiamate e messaggi malformati.
 
-### 🧩 408 Plugin
-Nove categorie con prefisso: `ADMIN`, `FUN`, `RPG`, `INFO`, `OWNER`, `GP`, `MENU`, `Anti-`, `UTILITY`. Ogni plugin si carica da solo.
+### 🧩 Sistema a Plugin
+Nove categorie riconoscibili dal prefisso del file: `ADMIN`, `FUN`, `RPG`, `INFO`, `OWNER`, `GP`, `MENU`, `Anti-`, `UTILITY`. Ogni plugin si carica da solo.
 
-### 💾 Whitelist Locale
-Tutto su file, nulla sul cloud. Numeri, gruppi e domini fidati sopravvivono ai riavvii e restano sul tuo dispositivo.
+### 💾 Dati in Locale
+Whitelist, impostazioni e database restano su file, sul tuo dispositivo. Nessun cloud per i dati del bot.
 
 </td>
 <td width="50%">
 
-### 📞 Gestione VoIP
-Rileva i numeri virtuali con **fallback Puppeteer**: se l'API principale non risponde, un browser headless subentra e la verifica non si ferma.
+### 📞 Verifica numeri VoIP
+Rileva i numeri virtuali tramite API, con **fallback Puppeteer**: se l'API non risponde, un browser headless esegue la verifica al suo posto.
 
-### 🔄 Aggiornamenti da Solo
-Controlla il remote `origin`, fa pull e ricarica a caldo i moduli cambiati. Tu non spegni nulla.
+### 🔄 Aggiornamenti integrati
+Controlla il remote `origin`, scarica le modifiche e ricarica a caldo i moduli cambiati, senza riavvio manuale.
 
 ### ✨ Integrazione OpenAI
-Risposte contestuali, riassunti delle chat, moderazione semantica — con rate-limit e coda di invio per non bruciare la quota.
+Risposte contestuali, riassunti delle chat e moderazione semantica, con rate limit e coda di invio per limitare il consumo della quota.
 
 </td>
+</tr>
+<tr>
+<td colspan="2">
+
+### 🖼️ Scanner hardware grafico
+Genera un riepilogo visivo delle risorse del dispositivo tramite Canvas.
+
+</td>
+</tr>
 </table>
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=1e1e29&height=2&section=header&text=&fontSize=0" width="100%"/>
 
 
 <h2>
-  <img src="https://img.shields.io/badge/02-%F0%9F%A7%A9_PLUGIN_CATEGORIES-b04dff?style=flat-square" height="22"/>
+  <img src="https://img.shields.io/badge/02-%F0%9F%A7%A9_CATEGORIE_PLUGIN-b04dff?style=flat-square" height="22"/>
 </h2>
 
-```
-ADMIN  ████████████████████ 48 plugin    │  .add  .kick  .promote  .warn
-FUN    ████████████████████████████ 76   │  .meme  .ship  .dado
-RPG    ██████████████████████ 63         │  .daily  .shop  .pay  .inv
-INFO   ████████████████ 41               │  .ping  .meteo  .wiki
-OWNER  ██████████████ 35                 │  .bc  .join  .eval  .off
-GP     █████████████████████ 57          │  .welcome  .hidetag  .group
-MENU   █████████ 22                     │  .menu  .menufun  .menuadmin
-Anti-  █████ 13                         │  anti-link  anti-spam  anti-crash
-UTILITY████████████████████ 52           │  .sticker  .tts  .qr  .ocr
-```
+<p>I 381 plugin sono divisi in nove categorie, riconoscibili dal prefisso del nome file. Per l'elenco completo dei comandi usa il menu direttamente in chat.</p>
 
 <table>
 <tr>
 <th align="left">Categoria</th>
 <th align="left">Descrizione</th>
-<th align="center">N°</th>
-<th align="left">Comandi</th>
 </tr>
-<tr><td><code><b>ADMIN</b></code></td><td>Moderazione completa: gestione membri, promozioni, ammonimenti, chat</td><td align="center"><b>48</b></td><td><code>.add</code> <code>.kick</code> <code>.promote</code> <code>.warn</code></td></tr>
-<tr><td><code><b>FUN</b></code></td><td>Minigiochi, meme, reazioni, ship e modalità a tema</td><td align="center"><b>76</b></td><td><code>.meme</code> <code>.ship</code> <code>.dado</code></td></tr>
-<tr><td><code><b>RPG</b></code></td><td>Economia virtuale: portafogli, negozi, lavori, aste, scommesse</td><td align="center"><b>63</b></td><td><code>.daily</code> <code>.shop</code> <code>.pay</code> <code>.inv</code></td></tr>
-<tr><td><code><b>INFO</b></code></td><td>Il mondo a portata di chat: meteo, wiki, orari, notizie</td><td align="center"><b>41</b></td><td><code>.ping</code> <code>.meteo</code> <code>.wiki</code></td></tr>
-<tr><td><code><b>OWNER</b></code></td><td>Controllo totale: broadcast, join/leave, eval, backup</td><td align="center"><b>35</b></td><td><code>.bc</code> <code>.join</code> <code>.eval</code> <code>.off</code></td></tr>
-<tr><td><code><b>GP</b></code></td><td>Benvenuti, regole, hidetag, apertura/chiusura gruppi</td><td align="center"><b>57</b></td><td><code>.welcome</code> <code>.hidetag</code> <code>.group</code></td></tr>
-<tr><td><code><b>MENU</b></code></td><td>Menu dinamici per categoria con navigazione a pulsanti</td><td align="center"><b>22</b></td><td><code>.menu</code> <code>.menufun</code> <code>.menuadmin</code></td></tr>
-<tr><td><code><b>Anti-</b></code></td><td>I 13 moduli di sicurezza: spam, link, crash, virtex, trojan</td><td align="center"><b>13</b></td><td><code>anti-link</code> <code>anti-spam</code> <code>anti-crash</code></td></tr>
-<tr><td><code><b>UTILITY</b></code></td><td>Strumenti quotidiani: sticker, conversioni, tts, QR, OCR</td><td align="center"><b>52</b></td><td><code>.sticker</code> <code>.tts</code> <code>.qr</code> <code>.ocr</code></td></tr>
+<tr><td><code><b>ADMIN</b></code></td><td>🛠️ Strumenti di moderazione per gli amministratori dei gruppi</td></tr>
+<tr><td><code><b>FUN</b></code></td><td>🎮 Minigiochi, meme e comandi di intrattenimento</td></tr>
+<tr><td><code><b>RPG</b></code></td><td>💰 Sistema di economia e progressione virtuale</td></tr>
+<tr><td><code><b>INFO</b></code></td><td>📚 Informazioni e consultazione rapida</td></tr>
+<tr><td><code><b>OWNER</b></code></td><td>👑 Comandi riservati al proprietario del bot</td></tr>
+<tr><td><code><b>GP</b></code></td><td>👥 Gestione e personalizzazione dei gruppi</td></tr>
+<tr><td><code><b>MENU</b></code></td><td>📋 Menu dinamici con navigazione a pulsanti</td></tr>
+<tr><td><code><b>Anti-</b></code></td><td>🛡️ Moduli di protezione automatica</td></tr>
+<tr><td><code><b>UTILITY</b></code></td><td>🧰 Strumenti di uso quotidiano</td></tr>
 </table>
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=1e1e29&height=2&section=header&text=&fontSize=0" width="100%"/>
 
 
 <h2>
-  <img src="https://img.shields.io/badge/03-%F0%9F%9B%A1%EF%B8%8F_ANTI_MODULES-3da5ff?style=flat-square" height="22"/>
+  <img src="https://img.shields.io/badge/03-%F0%9F%9B%A1%EF%B8%8F_SICUREZZA-3da5ff?style=flat-square" height="22"/>
 </h2>
 
-<p>Tredici moduli di difesa a strati — ognuno copre una ferita vera.</p>
+<p>Tredici moduli di difesa a strati, che lavorano in automatico e coprono tre aree.</p>
 
 <table>
 <tr>
-<td width="50%">
+<td width="33%" valign="top">
 
-| Modulo | Trigger | Azione |
-|--------|---------|--------|
-| **anti-call** | chiamata in entrata | rifiuto + notifica |
-| **anti-delete** | evento revoke | ripubblicazione |
-| **anti-link** | URL nel messaggio | warn → espulsione |
-| **anti-spam** | punteggio flood | silenziamento |
-| **anti-toxic** | punteggio tossicità | rimozione + warn |
-| **anti-sticker** | raffica sticker | rimozione eccedenti |
-| **anti-viewonce** | media effimero | inoltro al owner |
+#### 👥 Protezione dei gruppi
+Contrasto a link indesiderati, spam, flood, raffiche di sticker e linguaggio tossico, con avvisi progressivi e sanzioni.
 
 </td>
-<td width="50%">
+<td width="33%" valign="top">
 
-| Modulo | Trigger | Azione |
-|--------|---------|--------|
-| **anti-crash** | payload noto | scarto preventivo |
-| **anti-bug** | pattern anomalo | quarantena |
-| **anti-trojan** | allegato sospetto | blocco download |
-| **anti-lag** | consumo anomalo | scarto preventivo |
-| **anti-flood** | richieste oltre soglia | coda/scarto |
-| **anti-virtex** | unicode ostile | normalizzazione |
+#### 📡 Gestione degli eventi
+Chiamate in entrata, messaggi eliminati e contenuti temporanei a visualizzazione singola.
+
+</td>
+<td width="33%" valign="top">
+
+#### 🧱 Stabilità
+Difese contro messaggi malformati o progettati per bloccare o rallentare WhatsApp e il bot stesso.
 
 </td>
 </tr>
@@ -190,7 +177,7 @@ UTILITY████████████████████ 52          
   <img src="https://img.shields.io/badge/04-%F0%9F%91%A4_STAFF-b04dff?style=flat-square" height="22"/>
 </h2>
 
-<p>Cinque persone, contatti veri. Per supporto, segnalazioni o collaborazioni scrivi direttamente.</p>
+<p>Per supporto, segnalazioni o collaborazioni scrivi direttamente allo staff.</p>
 
 <h3>👑 Fondatori</h3>
 
@@ -213,37 +200,22 @@ UTILITY████████████████████ 52          
 </tr>
 </table>
 
-<h3>🛡️ Management</h3>
-
-<table>
-<tr>
-<td align="center">
-
-<img src="https://img.shields.io/badge/GHOST-1%C2%B0_Manager-b04dff?style=for-the-badge" height="24"/><br/>
-<a href="https://wa.me/212785655331"><img src="https://img.shields.io/badge/%F0%9F%93%A3_WhatsApp-25d366?style=flat-square&logo=whatsapp&logoColor=white" height="20"/></a><br/>
-<sub>Primo manager del bot, membro dello staff di 888 BOT. Coordina e filtra.</sub>
-
-</td>
-</tr>
-</table>
-
-<h3>💻 Sviluppo e Test</h3>
+<h3>💻 Sviluppo e Staff</h3>
 
 <table>
 <tr>
 <td align="center" width="50%">
 
-<img src="https://img.shields.io/badge/MANU-Dev_%26_Tester-3da5ff?style=for-the-badge" height="24"/><br/>
-<a href="https://wa.me/393331663641"><img src="https://img.shields.io/badge/%F0%9F%93%A3_WhatsApp-25d366?style=flat-square&logo=whatsapp&logoColor=white" height="20"/></a>
-<a href="https://t.me/manuxxxo"><img src="https://img.shields.io/badge/%E2%9C%88%EF%B8%8F_Telegram-0088cc?style=flat-square&logo=telegram&logoColor=white" height="20"/></a><br/>
-<sub>Developer e tester. Scrive di giorno, rompe di notte.</sub>
-
-</td>
-<td align="center" width="50%">
-
-<img src="https://img.shields.io/badge/DADO-Dev_Test_%26_Tester-7a7bff?style=for-the-badge" height="24"/><br/>
+<img src="https://img.shields.io/badge/DADO-Dev_%26_Tester-3da5ff?style=for-the-badge" height="24"/><br/>
 <a href="https://wa.me/447785114563"><img src="https://img.shields.io/badge/%F0%9F%93%A3_WhatsApp-25d366?style=flat-square&logo=whatsapp&logoColor=white" height="20"/></a><br/>
-<sub>Developer test e tester. Prova tutto, due volte.</sub>
+<sub>Developer e tester. Prova tutto, due volte.</sub>
+
+</td>
+<td align="center" width="50%">
+
+<img src="https://img.shields.io/badge/AXTRAL-Staff-b04dff?style=for-the-badge" height="24"/><br/>
+<a href="https://wa.me/17577575541"><img src="https://img.shields.io/badge/%F0%9F%93%A3_WhatsApp-25d366?style=flat-square&logo=whatsapp&logoColor=white" height="20"/></a><br/>
+<sub>Membro dello staff di 888 BOT.</sub>
 
 </td>
 </tr>
@@ -253,19 +225,19 @@ UTILITY████████████████████ 52          
 
 
 <h2>
-  <img src="https://img.shields.io/badge/05-%F0%9F%9B%A0%EF%B8%8F_INSTALLATION-b04dff?style=flat-square" height="22"/>
+  <img src="https://img.shields.io/badge/05-%F0%9F%9B%A0%EF%B8%8F_INSTALLAZIONE-3da5ff?style=flat-square" height="22"/>
 </h2>
 
-<p>Da zero al bot funzionante in quattro comandi, direttamente dal telefono.</p>
+<p>Da zero al bot funzionante in pochi comandi, direttamente dal telefono.</p>
 
 <h3>📋 Prerequisiti</h3>
 
 | Requisito | Dettaglio |
 |-----------|-----------|
-| 📱 **Android 8.0+** | Con Termux preso da F-Droid (non Play Store) |
-| 💾 **~500 MB liberi** | Node.js, FFmpeg, ImageMagick e Yarn |
-| 📶 **Connessione stabile** | Per l'abbinamento WhatsApp e gli aggiornamenti |
-| 📱 **QR Code** | Da scansionare al primo avvio |
+| 📱 **Android 8.0+** | Con Termux scaricato da [F-Droid](https://f-droid.org/packages/com.termux/) (non dal Play Store) |
+| 💾 **~500 MB liberi** | Per Node.js, FFmpeg, ImageMagick e Yarn |
+| 📶 **Connessione stabile** | Per l'abbinamento a WhatsApp e per gli aggiornamenti |
+| 📱 **Un secondo dispositivo** | Per scansionare il QR code al primo avvio |
 
 <h3>💻 Installazione su Termux</h3>
 
@@ -282,12 +254,43 @@ cd ~
 git clone https://github.com/artyompennini-a11y/888-BOT.git
 cd 888-BOT
 
-# — 04 · si parte
+# — 04 · installa le dipendenze e avvia
 yarn install
 yarn start
 ```
 
-> 💡 **Trucco:** dopo l'avvio esegui `termux-wake-lock` così Android non addormenta il bot.
+Al primo avvio scansiona il **QR code** da WhatsApp (*Dispositivi collegati*) per abbinare il bot.
+
+> 💡 **Consiglio:** dopo l'avvio esegui `termux-wake-lock` così Android non sospende il bot.
+
+<h3>⚙️ Configurazione</h3>
+
+Prima di un uso reale, controlla il file `config.js` e imposta i tuoi dati: numero del proprietario e chiavi API per le funzioni che le richiedono, come l'integrazione OpenAI.
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=1e1e29&height=2&section=header&text=&fontSize=0" width="100%"/>
+
+
+<h2>
+  <img src="https://img.shields.io/badge/06-%F0%9F%94%84_AGGIORNAMENTI-b04dff?style=flat-square" height="22"/>
+</h2>
+
+<p>Il bot controlla il repository remoto <code>origin</code>, scarica le modifiche e ricarica a caldo i moduli cambiati.</p>
+
+- Le novità vengono annunciate prima sul [canale WhatsApp](https://whatsapp.com/channel/0029Vb8Y0igGufJ0xMYJmU40) e poi su GitHub.
+- Se usi una copia modificata (fork), controlla a quale repository punta `origin`, così gli aggiornamenti arrivano dalla fonte che ti aspetti.
+- Se hai personalizzato dei file, fai un backup prima di aggiornare.
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=1e1e29&height=2&section=header&text=&fontSize=0" width="100%"/>
+
+
+<h2>
+  <img src="https://img.shields.io/badge/07-%E2%9A%A0%EF%B8%8F_NOTE_IMPORTANTI-3da5ff?style=flat-square" height="22"/>
+</h2>
+
+- **Uso non ufficiale:** 888 BOT è un progetto indipendente, non affiliato a WhatsApp o Meta. L'uso di bot su WhatsApp può violare i termini di servizio e comportare la sospensione del numero. **Usa un numero secondario**, non quello personale.
+- **Responsabilità:** l'uso del bot e dei suoi comandi è a tuo carico. Rispetta la privacy e le regole dei gruppi in cui lo inserisci.
+- **Chiavi API:** non pubblicare mai `config.js` con le tue chiavi o credenziali.
+- **Segnalazioni:** se trovi un problema, contatta lo staff oppure apri una issue su GitHub.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=1e1e29&height=2&section=header&text=&fontSize=0" width="100%"/>
 
@@ -315,7 +318,7 @@ yarn start
 <p align="center">
   <sub><b>888 BOT</b> è un progetto indipendente, non affiliato a WhatsApp o a Meta.</sub><br/>
   <sub>Installalo, usalo nei tuoi gruppi, rispetta i termini di servizio.</sub><br/>
-  <sub>v4.8.8 · build r3 · © 2026</sub>
+  <sub>v1.4 · © 2026</sub>
 </p>
 
 <p align="center">
