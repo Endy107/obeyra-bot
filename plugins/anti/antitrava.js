@@ -1,10 +1,18 @@
 //Plugin by Elixir, Punisher & 888 staff
 
-function normalizeJid(jid) {
-  return jid.split(':')[0]
-}
+import {
+  ROLES,
+  addWarn,
+  resetWarns,
+  getWarnConfig,
+  applyMute,
+  formatDuration,
+  flushDbNow
+} from '../../lib/moderation.js'
 
-const travaWarnings = {}
+function normalizeJid(jid) {
+  return String(jid || '').split(':')[0]
+}
 
 export async function before(m, { conn, isAdmin, isBotAdmin }) {
 
@@ -36,20 +44,10 @@ export async function before(m, { conn, isAdmin, isBotAdmin }) {
 
   if (!isTravaPayload) return true
 
-  global.db.data.users[m.sender] = global.db.data.users[m.sender] || {}
-  const user = global.db.data.users[m.sender]
-  user.antitrava = (user.antitrava || 0) + 1
+  const botJid = normalizeJid(conn.user?.jid || conn.user?.id || '')
+  const cfg = getWarnConfig(m.chat)
 
-  await conn.sendMessage(m.chat, {
-    text:
-`🚫 *AntiTrava attivato*
-
-👤 @${m.sender.split('@')[0]}
-📝 Messaggio rimosso perché potenzialmente crash/trava
-⚠️ Warn: ${user.antitrava}/2`,
-    mentions: [m.sender]
-  })
-
+  // Elimina subito il messaggio
   try {
     await conn.sendMessage(m.chat, {
       delete: {
@@ -61,22 +59,73 @@ export async function before(m, { conn, isAdmin, isBotAdmin }) {
     })
   } catch {}
 
-  if (user.antitrava >= 2) {
-    try {
-      const jid = normalizeJid(m.sender)
+  // Warn nel sistema centrale (visibile con .warn, rimovibile con .unwarn / .resetwarn)
+  let res
+  try {
+    res = addWarn({
+      chat: m.chat,
+      target: m.sender,
+      reason: 'AntiTrava: messaggio crash/trava',
+      actor: botJid,
+      role: ROLES.OWNER
+    })
+  } catch (e) {
+    console.log('Errore addWarn antitrava:', e)
+    return false
+  }
 
-      await conn.groupParticipantsUpdate(m.chat, [jid], 'remove')
+  // Espulsione al raggiungimento del limite
+  if (res.escalate) {
+    try {
+      resetWarns({ chat: m.chat, target: m.sender })
+      await flushDbNow()
 
       await conn.sendMessage(m.chat, {
-        text: `👋 @${jid.split('@')[0]} espulso per aver inviato travi ripetute.`,
-        mentions: [jid]
+        text:
+`❌ *UTENTE ESPULSO*
+
+👤 @${m.sender.split('@')[0]}
+⚙️ Azione: Rimozione automatica
+⛔ Motivo: Ha raggiunto ${cfg.max} avvertimenti (AntiTrava)`,
+        mentions: [m.sender]
       })
 
-      user.antitrava = 0
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      await conn.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
     } catch (e) {
       console.log('Errore espulsione antitrava:', e)
     }
+    return false
   }
+
+  // Mute automatico, se previsto dalla configurazione warn
+  let muteNote = ''
+  if (res.mute) {
+    try {
+      const mr = applyMute({
+        chat: m.chat,
+        target: m.sender,
+        actor: botJid,
+        role: ROLES.OWNER,
+        durationMs: cfg.muteMs
+      })
+      muteNote = `\n🔇 Mute automatico: ${formatDuration(mr.ms)}`
+    } catch {}
+  }
+
+  const riskNote = res.count >= cfg.max - 1
+    ? `\n⛔ Al prossimo warn verrai espulso.`
+    : ''
+
+  await conn.sendMessage(m.chat, {
+    text:
+`🚫 *AntiTrava attivato*
+
+👤 @${m.sender.split('@')[0]}
+📝 Messaggio rimosso perché potenzialmente crash/trava
+⚠️ Warn: ${res.count}/${cfg.max}${muteNote}${riskNote}`,
+    mentions: [m.sender]
+  })
 
   return false
 }
