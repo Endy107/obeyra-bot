@@ -38,6 +38,7 @@ const configOf = (chat) => {
   }
 }
 
+const extractCommand = (m) => {
   const text = String(m?.text || '')
   if (!text.startsWith('.')) return null
   return text.split(/\s+/)[0].slice(1).toLowerCase() || null
