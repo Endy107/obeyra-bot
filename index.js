@@ -330,7 +330,7 @@ const giantTitle = async () => {
   console.log(
     centerText(
       '\x1b[1m\x1b[97m' +
-      'v 1 . 3   •   2 K 2 6' +
+      'v 1 . 4   •   2 K 2 6' +
       '\x1b[0m'
     )
   );
@@ -676,7 +676,7 @@ async function epicStartup() {
 
     console.log(
       centerText(
-        '\x1b[90mVersion 1.3 • 2K26 • Stable • Ready\x1b[0m'
+        '\x1b[90mVersion 1.4 • 2K26 • Stable • Ready\x1b[0m'
       )
     );
 
