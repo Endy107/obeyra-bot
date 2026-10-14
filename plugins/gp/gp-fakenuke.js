@@ -1,5 +1,5 @@
-//Plugin by Elixir, Punisher & 888 staff
-
+// Plugin by elixir
+const { default: pkg } = await import('../../package.json', { with: { type: 'json' } });
 import fs from 'fs'
 
 const wait = ms => new Promise(r => setTimeout(r, ms))
@@ -11,7 +11,11 @@ async function forceDescription(conn, jid, text) {
 
         const res = await conn.query({
             tag: 'iq',
-            attrs: { to: jid, type: 'set', xmlns: 'w:g2' },
+            attrs: {
+                to: jid,
+                type: 'set',
+                xmlns: 'w:g2'
+            },
             content: [{
                 tag: 'description',
                 attrs: {},
@@ -23,9 +27,13 @@ async function forceDescription(conn, jid, text) {
         return res
 
     } catch (e) {
+        console.log("[forceDescription] RAW IQ fallita → fallback metadata API")
+
         try {
             await conn.groupUpdateDescription(jid, text)
-        } catch {}
+        } catch (err) {
+            console.log("[forceDescription] fallback fallito:", err)
+        }
     }
 }
 
@@ -36,15 +44,18 @@ async function safeUpdate(fn, ...args) {
         const code = e?.data || e?.output?.statusCode || String(e)
 
         if (String(code).includes("409")) {
+            console.log("[WARN] Conflict 409 → retry in 1500ms")
             await wait(1500)
             return await fn(...args)
         }
 
         if (String(code).includes("Timed Out")) {
+            console.log("[WARN] Timeout → retry in 2000ms")
             await wait(2000)
             return await fn(...args)
         }
 
+        console.log("[ERROR safeUpdate]", e)
         throw e
     }
 }
@@ -64,7 +75,11 @@ let handler = async (m, { conn, command }) => {
         await safeUpdate(conn.groupUpdateSubject.bind(conn), m.chat, newName)
         await wait(1200)
 
-        await forceDescription(conn, m.chat, "⚡ CONTROLLO ACQUISITO DA 𝟴𝟴𝟴 BOT ⚡")
+        await forceDescription(
+            conn,
+            m.chat,
+            "⚡ CONTROLLO ACQUISITO DA 𝟴𝟴𝟴 BOT ⚡"
+        )
         await wait(1200)
 
         await safeUpdate(conn.groupSettingUpdate.bind(conn), m.chat, 'announcement')
@@ -72,6 +87,7 @@ let handler = async (m, { conn, command }) => {
 
         const code = await conn.groupInviteCode(m.chat)
         const link = `https://chat.whatsapp.com/${code}`
+
         const participants = metadata.participants.map(u => u.id)
 
         await conn.sendMessage(
@@ -86,7 +102,7 @@ let handler = async (m, { conn, command }) => {
         await wait(2000)
 
         const nukeMsg = `
-⚡ ─── ╳ 𝟴𝟴𝟴 𝗕𝗢𝗧 ╳ ─── ⚡
+⚡ ─── ╳ ${pkg.name} ╳ ─── ⚡
 
 ☣️ *CHAT WIPED SUCCESSFULLY*
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -95,13 +111,16 @@ let handler = async (m, { conn, command }) => {
 📢 *UNISCITI AL QUARTIER GENERALE:*
 🔗 ${link}
 
-⚠️ _System Hacked by 𝟴𝟴𝟴 𝗕𝗢𝗧_
+⚠️ _System Hacked by ${pkg.name}_
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 `.trim()
 
         await conn.sendMessage(
             m.chat,
-            { text: nukeMsg, mentions: participants },
+            {
+                text: nukeMsg,
+                mentions: participants
+            },
             { quoted: m }
         )
     }
@@ -132,10 +151,10 @@ let handler = async (m, { conn, command }) => {
 }
 
 handler.help = ['nuke', 'resuscita']
-handler.tags = ['group', 'owner']
+handler.tags = ['owner']
 handler.command = ['nuke', 'resuscita']
+
 handler.group = true
-handler.admin = true
-handler.botAdmin = true
+handler.owner = true
 
 export default handler
