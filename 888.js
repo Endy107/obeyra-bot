@@ -27,8 +27,6 @@ import { Low, JSONFile } from 'lowdb';
 import readline from 'readline';
 import NodeCache from 'node-cache';
 
-import pkg from './package.json' with { type: 'json' }
-
 const authFolder = global.authFile || '888BotSession';
 global.authFile = authFolder;
 global.authFileJB = global.authFileJB || '888bot-sub';
@@ -285,7 +283,7 @@ let successfulConnectionLogged = false;
 
 function logSystem(message, color = 'cyanBright') {
   const printer = chalk[color] || chalk.cyanBright;
-  console.log(printer(`〔${pkg.name}〕 ${message}`));
+  console.log(printer(`〔𝟴𝟴𝟴 𝗕𝗢𝗧〕 ${message}`));
 }
 
 function normalizePhoneNumberInput(value = '') {
@@ -354,19 +352,6 @@ global.loadDatabase = async function loadDatabase() {
       global.db.data = { users: {}, chats: {}, stats: {}, msgs: {}, sticker: {}, settings: {}, ...(global.db.data || {}) };
       global.db.chain = chain(global.db.data);
       global.dbDirty = false;
-      try {
-        const DEFAULT_ON = ['antiporno', 'antigore', 'antitrava', 'antibot', 'antiBot', 'antinuke', 'modoadmin', 'antiLink', 'logrichieste'];
-        const REMOVED = ['antiraid', 'antiraidlink', 'antiraidlinkPunish', 'antiraidlinkSilent', 'antiraidWhitelist', 'antighost', 'antighostWindow', 'antighostIgnore', 'antighostLog', 'antipayment'];
-        for (const chat of Object.values(global.db.data.chats || {})) {
-          if (!chat || typeof chat !== 'object') continue;
-          for (const k of DEFAULT_ON) {
-            if (chat[k] === undefined || chat[k] === null) chat[k] = true;
-          }
-          for (const k of REMOVED) {
-            if (k in chat) delete chat[k];
-          }
-        }
-      } catch {}
       return global.db.data;
     } finally {
       global.db.READ = null;
@@ -456,7 +441,7 @@ let opzione;
 if (!pairingMode && !hasExistingSession) {
   const menu = `
 ${chalk.bgBlue.white('┏━━━━━━━━━━━━━━━━━━━━━━━┓')}
-${chalk.bgBlue.white(`┃     ${pkg.name} 2026      ┃`)}
+${chalk.bgBlue.white('┃     888 BOT 2026      ┃')}
 ${chalk.bgBlue.white('┃         V1.4          ┃')}
 ${chalk.bgBlue.white('┗━━━━━━━━━━━━━━━━━━━━━━━┛')}
 ${chalk.yellow('Seleziona come collegarti:')}
@@ -629,7 +614,7 @@ async function connectionUpdate(update) {
 
    if (qr && pairingMode === 'qr' && !global.qrGenerated) {
     console.log(chalk.bold.hex('#8b5cf6')(`
-           ${pkg.name}                  
+           𝟴𝟴𝟴 𝗕𝗢𝗧                  
         CONNESSIONE QR            
 
 📲 Scansiona il QR qui sotto
@@ -646,10 +631,6 @@ async function connectionUpdate(update) {
     global.qrGenerated = false;
     global.connectionMessagesPrinted = {};
     successfulConnectionLogged = true;
-
-    // FIX: dal momento in cui il bot si avvia, legge SOLO i messaggi nuovi.
-    // Il backlog vecchio (pre-riavvio) viene scartato in handler.js -> riavvio veloce.
-    global.bootTime = Date.now();
 
     logSystem(`Bot collegato con successo come ${getConnectionLabel()}`, 'whiteBright');
     logSystem(`Sessione attiva: ${global.authFile} | Pairing: ${hasExistingSession ? 'sessione esistente' : pairingMode || 'automatico'}`, 'whiteBright');
@@ -782,13 +763,6 @@ global.reloadHandler = async function (restatConn) {
   conn.ev.on('messages.upsert', conn.handler)
   conn.ev.on('group-participants.update', conn.participantsUpdate)
   conn.ev.on('groups.update', conn.groupsUpdate)
-  try {
-    if (typeof handler.ensureGroupCacheListeners === 'function') handler.ensureGroupCacheListeners(conn)
-    else {
-      conn.ev.on('group-participants.update', (u) => { try { if (u?.id) global.groupCache?.del?.(u.id) } catch {} })
-      conn.ev.on('groups.update', (us) => { try { for (const u of (Array.isArray(us) ? us : [us])) if (u?.id) global.groupCache?.del?.(u.id) } catch {} })
-    }
-  } catch {}
   conn.ev.on('message.delete', conn.onDelete)
   conn.ev.on('call', conn.onCall)
   conn.ev.on('connection.update', conn.connectionUpdate)
@@ -935,24 +909,3 @@ setInterval(async () => {
     console.error(chalk.red('[SESSION-CLEANUP] errore:'), e);
   }
 }, 1000 * 60 * 10);
-let axbotAutoStarted = false;
-const axbotWaitInterval = setInterval(async () => {
-  if (axbotAutoStarted) return clearInterval(axbotWaitInterval);
-  if (!global.conn?.user?.id) return;
-
-  clearInterval(axbotWaitInterval);
-  axbotAutoStarted = true;
-
-  try {
-    const AxBot = await import('./axbot-manager.js');
-    if (fs.existsSync('./sessioni_axbot/creds.json')) {
-      console.log(chalk.cyan('🔍 Sessione AxBot trovata, avvio automatico...'));
-      const res = await AxBot.start();
-      if (!res.ok) console.log(chalk.yellow(`[AxBot] ${res.msg}`));
-    } else {
-      console.log(chalk.yellow('ℹ️ Nessuna sessione AxBot. Usa .avvia axbot <numero>'));
-    }
-  } catch (e) {
-    console.error('Errore auto-start AxBot:', e.message);
-  }
-}, 2000);
