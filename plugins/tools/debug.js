@@ -516,4 +516,165 @@ const renderReport = ({ files, errors, warnings, cached }, ms) => {
     for (const w of warnings.slice(0, 20)) {
       L.push(' - ' + (w.file ? rel(w.file) + ' -> ' : '') + w.message)
     }
-    if (warnings.
+    if (warnings.length > 20) L.push(' ...e altri ' + (warnings.length - 20))
+  }
+  return L.join(NL)
+}
+const AI_SYSTEM = [
+  'Sei un revisore di codice JavaScript esperto.',
+  'Ricevi il contenuto di UN file di plugin di un bot WhatsApp (Baileys).',
+  'Analizzalo e segnala SOLO problemi reali e verificabili.',
+  'Non segnalare stile, formattazione o preferenze personali.',
+  'Non inventare problemi: se il codice e corretto, rispondi OK',
+  '',
+  'Rispondi in JSON valido con questa forma:',
+  '{"ok":true,"problemi":[{"riga":12,"tipo":"bug","descrizione":"...","correzione":"..."}]}',
+  'Se non ci sono problemi: {"ok":true,"problemi":[]}'
+].join(NL)
+
+const extractJSON = (text) => {
+  const t = String(text || '')
+  const start = t.indexOf('{')
+  if (start === -1) return null
+  let depth = 0
+  let inS = null
+  for (let i = start; i < t.length; i++) {
+    const c = t[i]
+    if (inS) {
+      if (c === '\\') { i++; continue }
+      if (c === inS) inS = null
+      continue
+    }
+    if (c === '"' || c === "'") { inS = c; continue }
+    if (c === '{') depth++
+    else if (c === '}') {
+      depth--
+      if (depth === 0) {
+        try { return JSON.parse(t.slice(start, i + 1)) } catch { return null }
+      }
+    }
+  }
+  return null
+}
+const lazyAI = async () => {
+  try {
+    const mod = await import('../../lib/ai.js')
+    return mod.default || mod
+  } catch (e) {
+    throw new Error('modulo IA non disponibile')
+  }
+}
+const askAI = async (code) => {
+  const ai = await lazyAI()
+  const res = await ai.ask(
+    [
+      { role: 'system', content: AI_SYSTEM },
+      { role: 'user', content: code }
+    ],
+    { maxTokens: 1200, temperature: 0.1 }
+  )
+  const text = res && typeof res.text === 'string' ? res.text : ''
+  if (/^\s*OK\s*$/i.test(text.trim())) return { ok: true, problemi: [] }
+  const parsed = extractJSON(text)
+  if (!parsed || typeof parsed !== 'object') throw new Error('no-JSON')
+  if (!Array.isArray(parsed.problemi)) parsed.problemi = []
+  parsed.problemi = parsed.problemi.filter((p) => p && typeof p === 'object').slice(0, 20)
+  return parsed
+}
+
+const safeErr = (e) => {
+  try { return String(e?.message || e || 'errore').slice(0, 500) } catch { return 'errore' }
+}
+const handler = async (m, { args, usedPrefix } = {}) => {
+  try {
+    const sub = String(args?.[0] || '').toLowerCase().trim()
+
+  if (sub === 'api' || sub === 'provider') {
+    let av = []
+    try { av = (await lazyAI()).available() } catch (e) { return m.reply('IA non disponibile: ' + safeErr(e)) }
+    if (!av.length) {
+      return m.reply('Nessuna API IA configurata. Inserisci groq, gemini o openrouter in config.js.')
+    }
+    const lines = av.map(p =>
+      p.name + ' (' + p.id + ')' + NL + '  modelli: ' + (p.models || []).slice(0, 3).join(', ')
+    )
+    return m.reply('API IA DISPONIBILI' + NL + NL + lines.join(NL + NL))
+  }
+
+  if (sub === 'ia' || sub === 'ai') {
+    let aiMod = null
+    try { aiMod = await lazyAI() } catch (e) { return m.reply('IA non disponibile: ' + safeErr(e)) }
+    let av = []
+    try { av = aiMod.available() } catch { av = [] }
+    if (!av.length) {
+      return m.reply('Nessuna API IA configurata. Usa ' + usedPrefix + 'debug api.')
+    }
+    const target = String(args?.[1] || '').trim().replace(/^["']|["']$/g, '')
+    if (!target) {
+      return m.reply('Specifica il file, es. ' + usedPrefix + 'debug ia plugins/tools/ping.js')
+    }
+    if (/[<>|&$`]/.test(target)) return m.reply('Percorso non valido.')
+    const norm = String(target).split(/[\\/]/).join('/')
+    if (norm.split('/').includes('..')) return m.reply('Percorso non valido.')
+    const file = path.isAbsolute(target) ? path.normalize(target) : path.normalize(path.join(ROOT, target))
+    if (!file.startsWith(ROOT + path.sep) && file !== ROOT) return m.reply('Resta dentro il bot.')
+    let stat = null
+    try { stat = fs.statSync(file) } catch { stat = null }
+    if (!stat || !stat.isFile()) return m.reply('File non trovato: ' + target)
+    if (!/\.(js|mjs|cjs)$/.test(file)) return m.reply('Solo file .js.')
+    if (stat.size > MAX_FILE_BYTES) return m.reply('File troppo grande.')
+    let code = ''
+    try { code = fs.readFileSync(file, 'utf8') } catch (e) { return m.reply('Lettura fallita: ' + safeErr(e)) }
+    if (code.length > 18000) code = code.slice(0, 18000) + NL + '// ...troncato'
+
+    await m.reply('Analisi IA in corso...')
+    try {
+      const r = await askAI(code)
+      if (r.ok && (!r.problemi || !r.problemi.length)) {
+        return m.reply('IA: nessun problema in ' + rel(file))
+      }
+      const probs = Array.isArray(r.problemi) ? r.problemi : []
+      const L = ['IA: ' + probs.length + ' problema/i in ' + rel(file), '']
+      probs.slice(0, 12).forEach(p => {
+        L.push(' Riga ' + (p.riga || '?') + ' [' + (p.tipo || 'bug') + ']')
+        L.push('  ' + (p.descrizione || ''))
+        if (p.correzione) L.push('  -> ' + p.correzione)
+        L.push('')
+      })
+      const out = L.join(NL)
+      for (const part of chunkForWA(out)) await m.reply(part)
+      return
+    } catch (e) {
+      return m.reply('Analisi IA fallita: ' + safeErr(e))
+    }
+  }
+
+  // 'forza'/'refresh' scarta la cache: senza, dopo aver corretto un file
+  // il report continuava a mostrare il vecchio risultato.
+  const rest = Array.isArray(args) ? args.slice(1) : []
+  const wantsRefresh = sub === 'forza' || sub === 'refresh' ||
+    rest.some(a => /^(forza|refresh|nocache|reload)$/i.test(String(a || '').trim()))
+
+  const t0 = Date.now()
+  let result = null
+  try { result = await runScan(!wantsRefresh) } catch (e) { return m.reply('Scan fallita: ' + safeErr(e)) }
+  const report = renderReport(result, Date.now() - t0)
+  for (const part of chunkForWA(report)) await m.reply(part)
+  if (result.errors.length) {
+    const detail = result.errors.slice(0, 5).map(e =>
+      '*DEBUG 888*' + NL + rel(e.file) + NL + e.message
+    ).join(NL + NL)
+    for (const part of chunkForWA(detail)) await m.reply(part)
+  }
+  } catch (e) {
+    try { await m.reply('Debug fallito: ' + safeErr(e)) } catch {}
+  }
+}
+
+handler.help = ['debug', 'debug forza', 'debug ia <file>', 'debug api']
+handler.tags = ['tools']
+handler.command = /^debug$/i
+handler.owner = true
+
+export { runScan, renderReport }
+export default handler
