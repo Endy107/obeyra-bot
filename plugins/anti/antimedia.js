@@ -11,7 +11,7 @@ export async function before(m, { conn, isAdmin, isBotAdmin, isOwner, isROwner }
   if (isAdmin || isOwner || isROwner) return true;
   if (!isBotAdmin) return true;
 
-  // Check for high-risk media types
+  
   const mtype = m.mtype || '';
   const riskyTypes = ['documentMessage', 'videoMessage'];
   
