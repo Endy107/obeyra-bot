@@ -96,8 +96,7 @@ Livello: Sviluppatore / Creatore Core
 • ${prefix}delrank (livelli) (@user)  
 • ${prefix}lock  
 
-📊 *Diagnostica & Server*
-• ${prefix}diagnosi  
+📊 *Diagnostica & Server*  
 • ${prefix}sistema  
 • ${prefix}dio  
 
