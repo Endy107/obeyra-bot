@@ -1,4 +1,4 @@
-// Plugin by elixir & punisher
+// Plugin by elixir, punisher & 888 staff
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, usedPrefix: prefix }) => {
@@ -57,8 +57,11 @@ Privilegi Amministratore
 
 🛡️ *Controllo & Moderazione*
 • ${prefix}warn @user motivo (mod: max 4, 5 solo Admin)  
-• ${prefix}unwarn @user (mod: 1 ogni 5 min)  
+• ${prefix}unwarn @user [ID|all] (mod: 1 ogni 5 min)  
 • ${prefix}warnlist (solo utenti con warn)  
+• ${prefix}warninfo @user (dettagli + ID)  
+• ${prefix}resetwarn @user (solo Admin)  
+• ${prefix}warnconfig (solo Admin)  
 • ${prefix}muta @user [durata] (mod: max 5 min)  
 • ${prefix}smuta @user  
 • ${prefix}banuser @user [durata] (mod: max 15 min)  
