@@ -101,8 +101,7 @@ Privilegi Amministratore
 • ${prefix}arresta  
 • ${prefix}giuria  
 • ${prefix}simula  
-• ${prefix}nuke  
-• ${prefix}ds  
+• ${prefix}nuke    
 
 ━━━━━━━━━━━━━━━━━━━━━━
 ⚠️ In caso di bug usa: *${prefix}segnala*
