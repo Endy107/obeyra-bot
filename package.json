@@ -39,7 +39,7 @@
     "qr": "node 888.js qr"
   },
   "dependencies": {
-    "@888-BOT/888baileys": "npm:@chatunity/baileys",
+    "@888-BOT/888baileys": "npm:@chatunitycenter/baileys",
     "@adiwajshing/keyed-db": "^0.2.4",
     "@cacheable/node-cache": "^1.4.0",
     "@distube/ytdl-core": "^4.16.12",
