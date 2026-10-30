@@ -1,4 +1,4 @@
-//Plugin by Elixir, Punisher & 888 staff
+//Plugin by Endy
 
 const handler = async (m, { conn, participants, groupMetadata, args }) => {
   const groupAdmins = participants.filter(p => p.admin)
@@ -16,7 +16,7 @@ const handler = async (m, { conn, participants, groupMetadata, args }) => {
     .join('\n')
 
   const text = `
-⚠️ *RICHIAMO ADMIN 888*
+⚠️ *RICHIAMO ADMIN OBEYRA*
 Segnalazione staff del gruppo
 
 📝 *Messaggio*
