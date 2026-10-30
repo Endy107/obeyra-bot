@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=50&pause=1000&color=FF0000&center=true&vCenter=true&width=700&height=120&lines=🦅+OBEYRA-BOT+🦅;THE+MOST+POWERFUL+BOT;DEVELOPED+BY+ENDY" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=50&pause=1000&color=blue&center=true&vCenter=true&width=700&height=120&lines=🦅+OBEYRA-BOT+🦅;THE+MOST+POWERFUL+BOT;DEVELOPED+BY+ENDY" alt="Typing SVG" />
 </p>
 
 <p align="center">
@@ -13,13 +13,13 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=25&pause=800&color=00FF00&center=true&vCenter=true&width=600&height=60&lines=STATUS:+ONLINE+✅;SYSTEM:+STABLE+🚀;OWNER:+ENDY" alt="Status SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=25&pause=800&color=purple&center=true&vCenter=true&width=600&height=60&lines=STATUS:+ONLINE+✅;SYSTEM:+STABLE+🚀;OWNER:+ENDY" alt="Status SVG" />
 </p>
 
 ---
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=30&pause=500&color=FF0000&center=true&vCenter=true&width=700&height=80&lines=DESCRIZIONE;SPECIFICHE+TECNICHE" alt="Descrizione" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=30&pause=500&color=black&center=true&vCenter=true&width=700&height=80&lines=DESCRIZIONE;SPECIFICHE+TECNICHE" alt="Descrizione" />
 </p>
 
 **OBEYRA-BOT** è un ecosistema avanzato per WhatsApp, costruito per garantire la massima potenza e stabilità.
@@ -31,7 +31,7 @@
 ---
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=30&pause=500&color=FF0000&center=true&vCenter=true&width=700&height=80&lines=GUIDA;INSTALLAZIONE+DETTAGLIATA" alt="Installazione" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=30&pause=500&color=red&center=true&vCenter=true&width=700&height=80&lines=GUIDA;INSTALLAZIONE+DETTAGLIATA" alt="Installazione" />
 </p>
 
 ### 📱 METODO 1: TERMUX (Android)
@@ -71,23 +71,23 @@
 ---
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=30&pause=500&color=FF0000&center=true&vCenter=true&width=700&height=80&lines=STATISTICHE;LIVE+REPORT" alt="Analisi" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=30&pause=500&color=blue&center=true&vCenter=true&width=700&height=80&lines=STATISTICHE;LIVE+REPORT" alt="Analisi" />
 </p>
 
 <p align="center">
-  <img src="https://gpvc.arturio.dev/BLOOD212/BLD-BLOOD-BOT" alt="Views" />
+  <img src="https://gpvc.arturio.dev/Endy107/obeyra-bot" alt="Views" />
   <img src="https://img.shields.io/github/forks/Endy107/obeyra-bot?style=for-the-badge&label=FORKS&color=black" alt="Forks" />
   <img src="https://img.shields.io/github/stars/Endy107/obeyra-bot?style=for-the-badge&label=STARS&color=purple" alt="Stars" />
 </p>
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=Endy107&repo=obeyra-bot&theme=blood-dark&title_color=ff0000&icon_color=red" width="100%" alt="Stats" />
+  <img src="https://github-readme-stats.vercel.app/api/pin/?username=Endy107&repo=obeyra-bot&theme=endy-dark&title_color=black&icon_color=red" width="100%" alt="Stats" />
 </p>
 
 ---
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=30&pause=500&color=FF0000&center=true&vCenter=true&width=700&height=80&lines=STAFF;CONTATTI" alt="Staff" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=30&pause=500&color=red&center=true&vCenter=true&width=700&height=80&lines=STAFF;CONTATTI" alt="Staff" />
 </p>
 
 * **Sviluppatore:** Endy
