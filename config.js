@@ -1,4 +1,3 @@
-// Config by elixir, punisher & 888 staff
 import { watchFile, unwatchFile } from 'fs'
 import { fileURLToPath, pathToFileURL } from 'url'
 import chalk from 'chalk'
@@ -20,20 +19,20 @@ function normalizeOwnerList(list) {
   ]);
 }
 
-global.browserless = "888"
+global.browserless = "obeyra"
 
-global.elixir = ['393272723855','393297014539','393784409415','17577575541','79524931364']
+global.endy = ['393501989497']
 
 let ownerData = [
-  ['393297014539', 'Elixir', true],
-  ['79524931364', 'Pusher', true],
-  ['17577575541', 'Axtral', true],   
-  ['447785114563', 'Dado', true],
-  ['393278863774', 'Dado2', true],     
+  ['393501989497', 'Endy', true],
+  ['393505723612', 'deni', true],
+  ['14153907884', 'knor', true],   
+  ['393513766377', 'roby', true],
+  ['79524931364', 'punisher', true],     
 
 // ---- Owner LID ----
 
-  ['83245710491831', 'Axtral lid', true],
+  ['393501989497', 'Endy', true],
 
 ];
 
@@ -61,18 +60,18 @@ for (const entry of fromFile) {
 global.owner = normalizeOwnerList(ownerData)
 
 
-global.nomepack = '𝟴𝟴𝟴 𝗕𝗢𝗧'
-global.nomebot = '𝟴𝟴𝟴 𝗕𝗢𝗧'
-global.wm = '𝟴𝟴𝟴 𝗕𝗢𝗧'
-global.autore = 'The punisher'
-global.dev = 'Elixir'
-global.testobot = `𝟴𝟴𝟴 𝗕𝗢𝗧`
+global.nomepack = 'obeyra bot'
+global.nomebot = 'obeyra bot'
+global.wm = 'obeyra bot'
+global.autore = 'Endy'
+global.dev = 'Endy'
+global.testobot = `obeyra bot`
 global.versione = pkg.version
 global.errore = '⚠️ *Errore inatteso!* Usa il comando `.segnala` per avvisare gli owner.'
 
-global.repobot = 'https//wa.me/393206032199'
-global.canale = 'https://whatsapp.com/channel/0029VauhQviCsU9Ibrwlkb0h'
-global.gruppo = 'https://chat.whatsapp.com/KqBeKHgrc53BNdvuPTKLTL'
+global.repobot = 'https//wa.me/39501989497'
+global.canale = 'https://whatsapp.com/channel/0029VbEKwNeL2ATx78GmKL2r'
+global.gruppo = 'https://chat.whatsapp.com/DofpUEqCeuO6u4csydLwaA?s=cl&p=a&mlu=4&ilr=4&iam=2'
 
 global.cheerio = cheerio
 global.fs = fs
