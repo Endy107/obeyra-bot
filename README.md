@@ -33,17 +33,16 @@
   <a href="https://888bot.netlify.app" target="_blank">
     <img src="https://img.shields.io/badge/%F0%9F%9A%80_Sito_888BOT-0a0a0a?style=for-the-badge&logo=firefox&logoColor=3da5ff&logoWidth=20" height="32"/>
   </a>
-  <a href="https://github.com/artyompennini-a11y/888-BOT" target="_blank">
+  <a href="https://github.com/Endy107/obeyra-bot" target="_blank">
     <img src="https://img.shields.io/badge/%E2%9A%99%EF%B8%8F_GitHub_Repo-111?style=for-the-badge&logo=github&logoColor=white&logoWidth=20" height="32"/>
   </a>
-  <a href="https://whatsapp.com/channel/0029Vb8Y0igGufJ0xMYJmU40" target="_blank">
+  <a href="https://whatsapp.com/channel/0029VbEKwNeL2ATx78GmKL2r" target="_blank">
     <img src="https://img.shields.io/badge/%F0%9F%93%A3_Canale_WhatsApp-25d366?style=for-the-badge&logo=whatsapp&logoColor=white&logoWidth=20" height="32"/>
   </a>
-  <a href="https://instagram.com/elixir._regna" target="_blank">
+  <a href="https://instagram.com/Endy.2011_" target="_blank">
     <img src="https://img.shields.io/badge/%F0%9F%93%B8_Instagram%20Elixir-e4405f?style=for-the-badge&logo=instagram&logoColor=white&logoWidth=20" height="32"/>
   </a>
-  <a href="https://instagram.com/arty.340" target="_blank">
-    <img src="https://img.shields.io/badge/%F0%9F%93%B8_Instagram%20Punisher-833ab4?style=for-the-badge&logo=instagram&logoColor=white&logoWidth=20" height="32"/>
+    <img src="https://img.shields.io/badge/%F0%9F%93%B8_Instagram%20Endy-833ab4?style=for-the-badge&logo=instagram&logoColor=white&logoWidth=20" height="32"/>
   </a>
 </p>
 
@@ -54,7 +53,7 @@
   <img src="https://img.shields.io/badge/01-%F0%9F%9A%80_PANORAMICA-3da5ff?style=flat-square" height="22"/>
 </h2>
 
-<p>888 BOT è basato su un'architettura a plugin: ogni funzione è un file indipendente, caricato automaticamente all'avvio e ricaricato a caldo quando viene modificato. Puoi aggiungere, rimuovere o cambiare comandi senza toccare il resto del codice.</p>
+<p>obeyra bot è basato su un'architettura a plugin: ogni funzione è un file indipendente, caricato automaticamente all'avvio e ricaricato a caldo quando viene modificato. Puoi aggiungere, rimuovere o cambiare comandi senza toccare il resto del codice.</p>
 
 <table>
 <tr>
