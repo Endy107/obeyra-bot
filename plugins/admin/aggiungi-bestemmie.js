@@ -1,5 +1,3 @@
-//Plugin by punisher, elixir & 888 staff
-
 const handler = async (m) => {
   const mention = m.mentionedJid[0] || (m.quoted ? m.quoted.sender : m.text)
   const user = global.db.data.users[mention]
