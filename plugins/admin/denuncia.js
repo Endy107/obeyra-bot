@@ -102,7 +102,7 @@ let handler = async (m, { conn, text, command, usedPrefix, isOwner, isROwner, is
         `✅ *Denuncia inviata allo staff*\n` +
         `👤 Utente segnalato: @${targetNum}\n` +
         `📝 Motivo: ${reason}\n` +
-        `📨 Destinazione: gruppo staff 888`,
+        `📨 Destinazione: gruppo staff OBEYRA`,
       mentions: [target]
     }, { quoted: m })
   } catch (e) {
