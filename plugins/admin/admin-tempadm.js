@@ -1,4 +1,3 @@
-// Plugin by elixir, punisher & 888 staff
 
 
 
