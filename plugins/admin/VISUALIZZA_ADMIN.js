@@ -1,5 +1,3 @@
-//Plugin by Punisher, Elixir & 888 staff
-
 import fetch from 'node-fetch'
 
 const handler = m => m
