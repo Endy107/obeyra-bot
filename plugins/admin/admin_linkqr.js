@@ -1,6 +1,3 @@
-//Plugin by Elixir, Punisher & 888 staff
-
-
 import QRCode from 'qrcode';
 
 const handler = async (m, { conn }) => {
