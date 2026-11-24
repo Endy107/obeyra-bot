@@ -1,5 +1,3 @@
-//Plugin by Endy
-
 const handler = async (m, { conn, participants, groupMetadata, args }) => {
   const groupAdmins = participants.filter(p => p.admin)
   const mentionList = groupAdmins.map(p => p.id)
