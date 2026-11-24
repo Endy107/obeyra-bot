@@ -25,10 +25,10 @@ global.endy = ['393501989497']
 
 let ownerData = [
   ['393501989497', 'Endy', true],
-  ['393505723612', 'deni', true],
-  ['14153907884', 'knor', true],   
+  ['19085308880', 'deni', true],
+  ['17027754159', 'knor', true],   
   ['393513766377', 'roby', true],
-  ['79524931364', 'punisher', true],     
+  ['905331312245', 'nemesis', true],     
 
 // ---- Owner LID ----
 
