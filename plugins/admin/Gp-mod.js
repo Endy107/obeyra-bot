@@ -1,4 +1,3 @@
-//Plugin by the punisher 
 let handler = async (m, { conn, text, command, usedPrefix, isOwner, isAdmin }) => {
     if (!isOwner && !isAdmin) 
         return m.reply("❌ Questo comando è riservato al proprietario del bot o agli admin del gruppo.")
